@@ -1,22 +1,22 @@
-<footer class="footer">
-        <div class="container-fluid">
-            <nav class="pull-left">
-                <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://htd-official.com">
-                            Hamzah Tech Development
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            <div class="copyright ml-auto">
-                Copyright &copy; 2021, made with <i class="fa fa-heart heart text-danger"></i> by <a href="https://www.htd-official.com">HTD</a>
-            </div>				
-        </div>
-    </footer>
-</div>
-<!-- End Custom template -->
-</div>
+			<footer class="footer">
+				<div class="container-fluid">
+					<nav class="pull-left">
+						<ul class="nav">
+							<li class="nav-item">
+								<a class="nav-link" href="https://htd-official.com">
+									Hamzah Tech Development
+								</a>
+							</li>
+						</ul>
+					</nav>
+					<div class="copyright ml-auto">
+						Copyright &copy; 2021, made with <i class="fa fa-heart heart text-danger"></i> by <a href="https://www.htd-official.com">HTD</a>
+					</div>				
+				</div>
+			</footer>
+		</div>
+		<!-- End Custom template -->
+	</div>
 	<!--   Core JS Files   -->
 	<script src="assets/js/core/jquery.3.2.1.min.js"></script>
 	<script src="assets/js/core/popper.min.js"></script>
@@ -44,10 +44,6 @@
 
 	<!-- Bootstrap Notify -->
 	<script src="assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
-
-	<!-- jQuery Vector Maps -->
-	<script src="assets/js/plugin/jqvmap/jquery.vmap.min.js"></script>
-	<script src="assets/js/plugin/jqvmap/maps/jquery.vmap.world.js"></script>
 
 	<!-- Sweet Alert -->
 	<script src="assets/js/plugin/sweetalert/sweetalert.min.js"></script>
@@ -151,6 +147,59 @@
 			lineColor: '#ffa534',
 			fillColor: 'rgba(255, 165, 52, .14)'
 		});
+	</script>
+	<script>
+	window.table_row_selected = -1
+	window.onkeyup = event => {
+		var key = event.key
+		if(key == 'F1')
+			location.href = 'index.php?r=pos/index'
+		if(key == 'F2')
+			window.open('index.php?r=pos/index')
+		if(key == 'F3')
+		{
+			document.querySelector('input[name=payment_total]').value = ''
+			document.querySelector('input[name=payment_total]').focus()
+		}
+		if(key == 'F4')
+		{
+			document.querySelector('#input-kode').focus()
+		}
+		if(key == 'F5')
+		{
+			document.querySelector('#kode-kustomer').focus()
+		}
+
+		var charCode = (event.which) ? event.which : event.keyCode;
+        if (event.ctrlKey && ((charCode >= 48 && charCode <= 57) || (charCode >= 96 && charCode <= 105))) {
+            window.table_row_selected = parseInt(key)-1
+			tableHighlight()
+        }
+
+		if(window.table_row_selected > -1)
+		{
+			var sel = window.table_row_selected
+			if(event.keyCode == 8 && document.querySelector('#q-'+sel) !== document.activeElement)
+			{
+				var id  = document.querySelector('#data-'+sel).dataset.id
+				deleteTransaction(id)
+				window.table_row_selected = -1
+			}
+
+			if(key == 'q')
+			{
+				document.querySelector('#q-'+sel).focus()
+			}
+		}
+	}
+
+	function tableHighlight()
+	{
+		var sel = window.table_row_selected
+		document.querySelectorAll('.data-row').forEach(row => row.style.background = '#FFF')
+		document.querySelector('#data-'+sel).style.background = '#efefef'
+		
+	}
 	</script>
 </body>
 </html>

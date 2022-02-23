@@ -14,30 +14,32 @@
                             </div>
                             <p></p>
                             <p></p>
-                            <table class="table table-hover" id="transactions-table">
-                                <thead>
-                                    <tr>
-                                        <th>Kode</th>
-                                        <th>Nama</th>
-                                        <th>Harga</th>
-                                        <th width="100px">Qty</th>
-                                        <th>Subtotal</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>Total</td>
-                                        <td>Rp. <span id="total">0</span></td>
-                                        <td></td>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                            <div class="table-responsive">
+                                <table class="table table-hover" id="transactions-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Kode</th>
+                                            <th>Nama</th>
+                                            <th>Harga</th>
+                                            <th width="100px">Qty</th>
+                                            <th>Subtotal</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>Total</td>
+                                            <td>Rp. <span id="total">0</span></td>
+                                            <td></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
 
                             <div class="row">
                                 <div class="col-12 col-md-7">

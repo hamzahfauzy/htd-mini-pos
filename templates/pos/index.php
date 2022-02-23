@@ -1,4 +1,5 @@
 <?php load_templates('layouts/top') ?>
+<?php load_templates('pos/modal') ?>
     <div class="content py-5">
         <div class="page-inner">
             <div class="row row-card-no-pd">
@@ -6,12 +7,14 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-qrcode"></i></button>&nbsp;
                                 <button class="btn btn-success">Cari Produk</button>&nbsp;
                                 <input type="text" class="form-control" id="kode-kustomer" placeholder="Kode Kustomer" name="customer_code">&nbsp;
                                 <input type="text" class="form-control" placeholder="Nama Kustomer" readonly>
                             </div>
                             <p></p>
-                            <table class="table table-bordered table-hover" id="transactions-table">
+                            <p></p>
+                            <table class="table table-hover" id="transactions-table">
                                 <thead>
                                     <tr>
                                         <th>Kode</th>
@@ -30,7 +33,7 @@
                                         <td></td>
                                         <td></td>
                                         <td>Total</td>
-                                        <td><h1>Rp. <span id="total">0</span></h1></td>
+                                        <td>Rp. <span id="total">0</span></td>
                                         <td></td>
                                     </tr>
                                 </tfoot>
@@ -41,8 +44,8 @@
                                 <img src="" alt="" id="product-pic" width="100%">
                                 </div>
                                 <div class="col-12 col-md-5 text-right">
-                                    <input type="number" class="form-control mb-2" name="payment_total" placeholder="Nominal Bayar" onkeyup="hitungKembalian(this.value, event)" style="font-size:40px" value="0">
-                                    <input type="number" class="form-control mb-2" name="return_total" placeholder="Kembalian" style="font-size:40px" value="0" readonly>
+                                    <input type="number" class="form-control mb-2" name="payment_total" placeholder="Nominal Bayar" onkeyup="hitungKembalian(this.value, event)" value="0">
+                                    <input type="number" class="form-control mb-2" name="return_total" placeholder="Kembalian" value="0" readonly>
                                     <button id="btn-bayar" class="btn btn-primary btn-block" onclick="bayar()">BAYAR</button>
                                 </div>
                             </div>
@@ -62,28 +65,35 @@
 
     function addToCashier(ev, kode)
     {
-        // in case if barcode scanner has enter button
-        if(ev.key.toLowerCase() == 'enter')
-        {
-            
-        }
 
+        // in case if barcode scanner has enter button
+        // if(ev.key.toLowerCase() == 'enter')
+        // {
+            
+        // }
+
+        fetchToCashier(kode, ev.target)
+    }
+
+    function fetchToCashier(code, target)
+    {
+        if(code == '') return
         if(codeTimeout) clearTimeout(codeTimeout)
 
         codeTimeout = setTimeout(() => {
-            fetch('index.php?r=api/transactions/add-to-cashier&code='+kode+'&pos_sess_id=<?=$pos_sess_id?>')
+            fetch('index.php?r=api/transactions/add-to-cashier&code='+code+'&pos_sess_id=<?=$pos_sess_id?>')
             .then(res => res.json())
             .then(res => {
                 if(!res.hasOwnProperty('error'))
                 {
                     window.transactions = res
                     initTransactionToTable()
-                    ev.target.value = ""
                     document.querySelector('#product-pic').src = res.pic
                     setTimeout(() => {
                         document.querySelector('#product-pic').src = ''
                     }, 2000);
                 }
+                target.value = ""
             })
             .catch(err => {
                 console.log(err)
@@ -131,8 +141,8 @@
             index++
         }
 
-        xTable.getElementsByTagName("tbody")[0].innerHTML += `<tr><td style="padding:0!important;" width="200px">
-                                            <input type="text" class="form-control" id="input-kode" onkeyup="addToCashier(event, this.value)" style="border-radius:0;border:0;" autofocus>
+        xTable.getElementsByTagName("tbody")[0].innerHTML += `<tr><td style="padding:0!important;" width="200px;">
+                                            <input type="text" class="form-control" id="input-kode" onkeyup="addToCashier(event, this.value)" style="border-radius:0;border:0;width:calc(100% - 37px);" autofocus>
                                         </td>
                                         <td>-</td>
                                         <td>-</td>
@@ -206,4 +216,20 @@
 
     initTransactionToTable()
     </script>
+    <!-- include the library -->
+<script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
+<script>
+var html5QrcodeScanner = new Html5QrcodeScanner(
+	"qr-reader", { fps: 24, qrbox: 250 });
+
+function onScanSuccess(decodedText, decodedResult) {
+    // console.log(`Code scanned = ${decodedText}`, decodedResult);
+    var audio = new Audio('sounds/success.wav');
+    audio.play();
+    fetchToCashier(decodedText, document.querySelector('#input-kode'))
+    // document.querySelector('#input-kode').value = decodedText
+}
+
+html5QrcodeScanner.render(onScanSuccess);
+</script>
 <?php load_templates('layouts/bottom') ?>

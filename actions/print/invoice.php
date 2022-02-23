@@ -41,6 +41,10 @@ if(!file_exists('inv_print/'.$inv_code.'.pdf'))
         if($height > 290) $height = 290;
     
         $html = load_templates('print/invoice',compact('transaction'),1);
+
+        echo $html;
+
+        die;
     
         $html2pdf = new Html2Pdf('P',[
             '57',

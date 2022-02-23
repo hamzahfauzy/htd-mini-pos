@@ -48,9 +48,32 @@ foreach($carts['items'] as $product_id => $item)
     ]);
 }
 unset($_SESSION[$pos_sess_id]);
+
+$items = $db->all('transaction_items',[
+    'transaction_id' => $transaction->id
+]);
+    
+foreach($items as $index => $item)
+{
+    $product = $db->single('products',[
+        'id' => $item->product_id
+    ]);
+
+    $items[$index]->product = $product;
+}
+
+$transaction->items = $items;
+$transaction->user  = $db->single('users',[
+    'id' => $transaction->user_id
+]);
+
+$transaction->customer  = $db->single('customers',[
+    'id' => $transaction->customer_id
+]);
 echo json_encode([
     'status' => 'success',
     'msg'    => 'payment success',
-    'inv_code' => $inv_code
+    'inv_code' => $inv_code,
+    'transaction'=>$transaction
 ]);
 die();

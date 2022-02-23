@@ -85,7 +85,7 @@
         </div>
     </div>
     <script>
-    function cetak()
+    async function cetak()
     {
         if(typeof(Android) === "undefined") 
         {
@@ -115,7 +115,8 @@
                             "[C]--------------------------------\n" +
                             `[L]<b>Kembalian</b> [R]${formatter.format(transaction.return_total)}\n` +
                             "[C]--------------------------------\n\n" +
-                            "[C]** Terimakasih telah berbelanja di <?=app('name')?> **"
+                            "[C]Terimakasih telah berbelanja di\n"+
+                            "[C]<?=app('name')?>"
                             ;
 
             Android.printInvoice(printText);

@@ -9,6 +9,7 @@
                     </div>
                     <div class="ml-md-auto py-2 py-md-0">
                         <a href="index.php?r=transactions/index" class="btn btn-warning btn-round">Kembali</a>
+                        <button class="btn btn-success btn-round" onclick="cetak()">Cetak Struk</button>
                     </div>
                 </div>
             </div>
@@ -83,4 +84,42 @@
             </div>
         </div>
     </div>
+    <script>
+    function cetak()
+    {
+        if(typeof(Android) === "undefined") 
+        {
+            var res = await fetch('index.php?r=print/invoice&inv_code='+response.inv_code)
+        }
+        else
+        {
+            var formatter = new Intl.NumberFormat('en-US', {});
+            var transaction = <?=json_encode($transaction)?>;
+
+            var transactionItems = "[C]--------------------------------\n";
+            transaction.items.forEach(item=>{
+                transactionItems += `[L]${item.product.shortname}\n`
+                transactionItems += `[L]${item.qty} x ${formatter.format(item.price)} [R]${formatter.format(item.subtotal)}\n`
+            })
+            transactionItems += "[C]--------------------------------\n";
+
+            var printText = "[C]<b><?=app('name')?></b>\n" +
+                            "[C]<?=app('address')?>\n" +
+                            "[C]<?=app('phone')?>\n" +
+                            "[C]--------------------------------\n" +
+                            "[C]<?=date('d/m/Y H:i')?>\n" +
+                            transactionItems +
+                            `[L]<b>Total</b> [R]${formatter.format(transaction.total)}\n` +
+                            "[C]--------------------------------\n" +
+                            `[L]<b>Bayar</b> [R]${formatter.format(transaction.paytotal)}\n` +
+                            "[C]--------------------------------\n" +
+                            `[L]<b>Kembalian</b> [R]${formatter.format(transaction.return_total)}\n` +
+                            "[C]--------------------------------\n\n" +
+                            "[C]** Terimakasih telah berbelanja di <?=app('name')?> **"
+                            ;
+
+            Android.printInvoice(printText);
+        }
+    }
+    </script>
 <?php load_templates('layouts/bottom') ?>

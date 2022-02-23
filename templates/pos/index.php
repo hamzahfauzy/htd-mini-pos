@@ -239,6 +239,10 @@
 
                 Android.printInvoice(printText);
             }
+
+            setTimeout(function(){
+                window.location = 'index.php?r=transactions/view&id='+transaction.id
+            },3000)
             
         }
         // .then(res => res.json())

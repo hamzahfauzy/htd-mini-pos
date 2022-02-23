@@ -234,7 +234,7 @@
                                 "[C]--------------------------------\n" +
                                 `[L]<b>Kembalian</b> [R]${formatter.format(transaction.return_total)}\n` +
                                 "[C]--------------------------------\n\n" +
-                                "[C]** Terimakasih telah berbelanja di <?=app('name')?> **"
+                                "[C]Terimakasih telah berbelanja di <?=app('name')?>"
                                 ;
 
                 Android.printInvoice(printText);

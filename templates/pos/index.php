@@ -205,9 +205,9 @@
         var response = await request.json()
         if(response.status == 'success') 
         {
-            alert('Pembayaran Berhasil! Klik Oke untuk mencetak struk')
             if(typeof(Android) === "undefined") 
             {
+                alert('Pembayaran Berhasil! Klik Oke untuk mencetak struk')
                 var res = await fetch('index.php?r=print/invoice&inv_code='+response.inv_code)
             }
             else

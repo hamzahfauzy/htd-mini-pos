@@ -84,6 +84,7 @@
             </div>
         </div>
     </div>
+    <?php $transaction->user = [] ?>
     <script>
     async function cetak()
     {
@@ -99,7 +100,10 @@
             var transactionItems = "[C]--------------------------------\n";
             transaction.items.forEach(item=>{
                 transactionItems += `[L]${item.product.shortname}\n`
-                transactionItems += `[L]${item.qty} x ${formatter.format(item.price)} [R]${formatter.format(item.subtotal)}\n`
+                if(item.status == 'retur')
+                    transactionItems += `[L]${item.qty} x ${formatter.format(item.price)} [R](${formatter.format(item.subtotal)})\n`
+                else
+                    transactionItems += `[L]${item.qty} x ${formatter.format(item.price)} [R]${formatter.format(item.subtotal)}\n`
             })
             transactionItems += "[C]--------------------------------\n";
 

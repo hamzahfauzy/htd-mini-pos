@@ -68,6 +68,8 @@
                                                 Rp. {{transaction.subtotal_format}}
                                             </div>
                                         </div>
+
+                                        <h2>Total : Rp. {{transactions.total ? transactions.total_format : 0}}</h2>
                                     </div>
                                 </div>
                                 <div class="text-right">

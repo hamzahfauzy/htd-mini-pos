@@ -43,6 +43,12 @@
                                 <input type="tel" name="app[phone]" id="" required class="form-control mb-2" placeholder="Telepon / HP Disini...">
                                 <label for="">E-Mail</label>
                                 <input type="text" name="app[email]" id="" required class="form-control mb-2" placeholder="E-Mail Disini...">
+                                <label for="">POS Mode</label>
+                                <select name="app[pos_mode]" id="" class="form-control" required>
+                                    <option value="">- Pilih -</option>
+                                    <option>Mode 1</option>
+                                    <option>Mode 2</option>
+                                </select>
                                 <label for="">Nama Pengguna</label>
                                 <input type="text" name="users[username]" id="" required class="form-control mb-2" placeholder="Nama Pengguna Disini...">
                                 <label for="">Kata Sandi</label>

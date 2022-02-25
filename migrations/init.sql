@@ -30,7 +30,8 @@ CREATE TABLE application (
     name VARCHAR(100) NOT NULL,
     address TEXT NOT NULL,
     phone VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL
+    email VARCHAR(100) NOT NULL,
+    pos_mode VARCHAR(100) NULL
 );
 
 CREATE TABLE categories (

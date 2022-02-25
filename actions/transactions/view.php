@@ -29,4 +29,10 @@ foreach($items as $index => $item)
 
 $transaction->items = $items;
 
-return compact('transaction','success_msg');
+$badge = [
+    'order' => 'warning',
+    'pay'   => 'success',
+    'retur' => 'danger',
+];
+
+return compact('transaction','success_msg','badge');

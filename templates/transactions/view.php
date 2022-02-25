@@ -19,28 +19,31 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <table class="table table-bordered">
-                                <tr>
-                                    <td>Invoice</td>
-                                    <td width="10px">:</td>
-                                    <td><?=$transaction->inv_code?></td>
-                                </tr>
-                                <tr>
-                                    <td>Customer</td>
-                                    <td>:</td>
-                                    <td><?=$transaction->customer?$transaction->customer->name:'-'?></td>
-                                </tr>
-                                <tr>
-                                    <td>Kasir</td>
-                                    <td>:</td>
-                                    <td><?=$transaction->user->name?></td>
-                                </tr>
-                                <tr>
-                                    <td>Total</td>
-                                    <td>:</td>
-                                    <td><?=number_format($transaction->total)?></td>
-                                </tr>
-                            </table>
+                            <div class="table-responsive">
+
+                                <table class="table">
+                                    <tr>
+                                        <td>Invoice</td>
+                                        <td width="10px">:</td>
+                                        <td><?=$transaction->inv_code?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Customer</td>
+                                        <td>:</td>
+                                        <td><?=$transaction->customer?$transaction->customer->name:'-'?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kasir</td>
+                                        <td>:</td>
+                                        <td><?=$transaction->user->name?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total</td>
+                                        <td>:</td>
+                                        <td><?=number_format($transaction->total)?></td>
+                                    </tr>
+                                </table>
+                            </div>
                             <?php if($success_msg): ?>
                                 <div class="alert alert-success"><?=$success_msg?></div>
                             <?php endif ?>
@@ -50,8 +53,7 @@
                                         <tr>
                                             <th width="20px">#</th>
                                             <th>Produk</th>
-                                            <th>Jumlah</th>
-                                            <th>Harga</th>
+                                            <th>Status</th>
                                             <th>Sub Total</th>
                                             <th class="text-right"></th>
                                         </tr>
@@ -62,15 +64,20 @@
                                             <td>
                                                 <?=$index+1?>
                                             </td>
-                                            <td><?=$item->product->name?></td>
-                                            <td><?=$item->qty?></td>
-                                            <td><?=number_format($item->price)?></td>
+                                            <td>
+                                                <?=$item->product->name?>
+                                                <br>
+                                                <small><?=$item->qty?> x <?=number_format($item->price)?></small>
+                                            </td>
+                                            <td>
+                                                <span class="badge badge-<?=$badge[$item->status]?>"><?= $item->status ?></span>
+                                            </td>
                                             <td><?=number_format($item->subtotal)?></td>
                                             <td>
-                                                <?php if($item->status == 'retur'): ?>
-                                                <i>Barang dikembalikan</i>
-                                                <?php else: ?>
-                                                <a href="index.php?r=transactions/retur&id=<?=$item->id?>" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Retur Barang</a>
+                                                <?php if($item->status == 'order'): ?>
+                                                <a href="index.php?r=transactions/pay&id=<?=$item->id?>" class="btn btn-sm btn-success"><i class="fas fa-money-bill fa-fw"></i> Bayar</a>    
+                                                <?php elseif($item->status == 'pay'): ?>
+                                                <a href="index.php?r=transactions/retur&id=<?=$item->id?>" class="btn btn-sm btn-danger"><i class="fas fa-trash fa-fw"></i> Retur Barang</a>
                                                 <?php endif ?>
                                             </td>
                                         </tr>

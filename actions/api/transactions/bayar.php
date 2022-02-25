@@ -5,6 +5,7 @@ $db   = new Database($conn);
 
 $pos_sess_id = $_POST['pos_sess_id'];
 $carts = $_SESSION[$pos_sess_id];
+$status = $_GET['status'] == 'bayar' ? 'pay' : 'order';
 
 $customer_id = 0;
 if(isset($_POST['customer_code']))
@@ -21,7 +22,7 @@ $inv_code = str_replace('pos_sess_id_','',$pos_sess_id);
 $insert_data = [
     'user_id'  => auth()->user->id,
     'total'    => $carts['total'],
-    'status'   => 'pay',
+    'status'   => $status,
     'inv_code' => $inv_code,
     'paytotal' => $_POST['paytotal'],
     'return_total' => $_POST['paytotal']-$carts['total']
@@ -39,7 +40,7 @@ foreach($carts['items'] as $product_id => $item)
         'price'          => $item['price'],
         'qty'            => $item['qty'],
         'subtotal'       => $item['subtotal'],
-        'status'         => 'pay',
+        'status'         => $status,
     ]);
 
     $db->insert('product_stocks',[

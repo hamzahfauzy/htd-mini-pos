@@ -28,8 +28,11 @@ $categories = array_map(function($category) use ($keyword, $db){
                 'product_id' => $product->id
             ],[
                 'id' => 'DESC'
-            ])->base_price;
+            ])->base_price ?? 0;
             $product->price = number_format($price);
+
+            $db->query = "SELECT sum(qty) as stock FROM product_stocks WHERE product_id=$product->id";
+            $product->stock = $db->exec('single')->stock ?? 0;
 
             return $product;
         },$db->exec('all'));

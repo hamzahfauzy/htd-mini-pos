@@ -1,14 +1,37 @@
 <?php load_templates('layouts/top') ?>
-<?php load_templates('pos/modal') ?>
+<style>
+.fly-transactions {
+    position: fixed;
+    top: 85px;
+    z-index: 1;
+    padding: 0px 15px;
+    width: 100%;
+    left: 100%;
+    transform: translateX(100%);
+    transition:1s all;
+}
+.fly-transactions.show {
+    left: 0;
+    transform: translateX(0);
+}
+.fab-right {
+    position: fixed;
+    right:-5px;
+    top: 50%;
+    z-index: 2;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+</style>
     <div class="content py-5">
         <div id="app">
             <div class="page-inner">
                 <div class="row">
-                    <div class="col-12 col-md-7">
+                    <div class="col-12">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-qrcode"></i></button>&nbsp;
                                     <input type="text" class="form-control" id="kode-kustomer" placeholder="Kode Kustomer" name="customer_code">&nbsp;
                                     <input type="text" class="form-control" placeholder="Nama Kustomer" readonly>
                                 </div>
@@ -24,13 +47,14 @@
                                     <div class="col-12">
                                         <h4 v-html="d.name"></h4>
                                     </div>
-                                    <div class="col-sm-12 col-md-3" v-if="d.products.length" v-for="(product, j) in d.products" :key="j">
-                                        <div class="card card-post card-round" @click="addToCashier(product.code)" style="cursor:pointer">
+                                    <div class="col-6 col-sm-3 col-md-2" v-if="d.products.length" v-for="(product, j) in d.products" :key="j">
+                                        <div class="card card-post card-round" @click="addToCashier(product)" style="cursor:pointer">
                                             <span class="badge badge-success position-absolute mt-1 ml-1">Rp. {{product.price}}</span>
-                                            <img class="card-img-top" :src="product.pic" :alt="product.name" height="100" style="object-fit: scale-down;">
+                                            <img class="card-img-top" :src="product.pic" :alt="product.name" height="100" style="object-fit: scale-down;" :style="{filter: product.stock == 0 ? 'grayscale(100%)' : ''}">
                                             <div class="card-body p-1">
-                                                <div class="info-post">
-                                                    <p class="username text-center" v-html="product.shortname"></p>
+                                                <div class="info-post text-center">
+                                                    <p class="username" v-html="product.shortname"></p>
+                                                    Stok : {{product.stock}}
                                                 </div>
                                             </div>
                                         </div>
@@ -42,41 +66,47 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-md-5">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="text-center">
-                                    <h2>Ringkasan</h2>
-                                    <div class="transactions">
-                                        <div class="item d-flex w-100 justify-content-between mb-3" v-for="(transaction, i) in transactions.items" :key="i">
-                                            <div class="item-detail text-left">
-                                                <b>{{transaction.name}}</b>
-                                                <div class="text-left">
-                                                    <button class="btn btn-icon btn-primary btn-round btn-xs" @click="updateQty(transaction.id,transaction.qty,'plus')">
-                                                        <i class="fa fa-plus"></i>
-                                                    </button>
-                                                    <span class="ml-3 mr-3">{{transaction.qty}}</span>
-                                                    <button class="btn btn-icon btn-danger btn-round btn-xs" @click="updateQty(transaction.id,transaction.qty,'minus')">
-                                                        <i class="fa fa-minus"></i>
-                                                    </button>
-                                                    <button class="btn btn-icon btn-danger btn-round btn-xs" @click="deleteTransaction(transaction.id)">
-                                                        <i class="fa fa-trash"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="item-subtotal">
-                                                Rp. {{transaction.subtotal_format}}
+                </div>
+                <div class="fab-right">
+                    <button class="btn btn-primary btn-sm" @click="ringkasan_panel = !ringkasan_panel">
+                        <i class="fas fa-angle-left" v-if="!ringkasan_panel"></i>
+                        <i class="fas fa-angle-right" v-else></i>
+                    </button>
+                </div>
+                <div class="fly-transactions" :class="{show:ringkasan_panel}">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <h2>Total : Rp. {{transactions.total ? transactions.total_format : 0}}</h2>
+                                <div class="transactions" style="height: calc(100vh - 380px);overflow: auto;">
+                                    <div class="item d-flex w-100 justify-content-between mb-3" v-for="(transaction, i) in transactions.items" :key="i">
+                                        <div class="item-detail text-left">
+                                            <b>{{transaction.name}}</b>
+                                            <div class="text-left">
+                                                <button class="btn btn-icon btn-danger btn-round btn-xs" @click="deleteTransaction(transaction.id)">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                                &nbsp;
+                                                <button class="btn btn-icon btn-danger btn-round btn-xs" @click="updateQty(transaction.id,transaction.qty,'minus')">
+                                                    <i class="fa fa-minus"></i>
+                                                </button>
+                                                <span class="ml-3 mr-3">{{transaction.qty}}</span>
+                                                <button class="btn btn-icon btn-primary btn-round btn-xs" @click="updateQty(transaction.id,transaction.qty,'plus')">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
                                             </div>
                                         </div>
-
-                                        <h2>Total : Rp. {{transactions.total ? transactions.total_format : 0}}</h2>
+                                        <div class="item-subtotal">
+                                            Rp. {{transaction.subtotal_format}}
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="text-right">
-                                    <input type="number" class="form-control mb-2" name="payment_total" placeholder="Nominal Bayar" @keyup="hitungKembalian()" v-model="bayar">
-                                    <input type="number" class="form-control mb-2" name="return_total" placeholder="Kembalian" v-model="kembalian" readonly>
-                                    <button id="btn-bayar" class="btn btn-primary btn-block" @click="doBayar()">BAYAR</button>
-                                </div>
+                            </div>
+                            <div class="text-right">
+                                <input type="number" class="form-control mb-2" name="payment_total" placeholder="Nominal Bayar" @keyup="hitungKembalian()" v-model="bayar">
+                                <input type="number" class="form-control mb-2" name="return_total" placeholder="Kembalian" v-model="kembalian" readonly>
+                                <button id="btn-order" class="btn btn-success btn-block" @click="doSubmit('order')">ORDER</button>
+                                <button id="btn-bayar" class="btn btn-primary btn-block" @click="doSubmit()">BAYAR</button>
                             </div>
                         </div>
                     </div>
@@ -84,21 +114,6 @@
             </div>
         </div>
     </div>
-    <script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
-    <script>
-    document.querySelector('.wrapper').classList.add('sidebar_minimize')
-    
-    var html5QrcodeScanner = new Html5QrcodeScanner(
-        "qr-reader", { fps: 24, qrbox: 250 });
-
-    function onScanSuccess(decodedText, decodedResult) {
-        var audio = new Audio('sounds/success.wav');
-        audio.play();
-        // fetchToCashier(decodedText, document.querySelector('#input-kode'))
-    }
-
-    html5QrcodeScanner.render(onScanSuccess);
-    </script>
     <script src="https://unpkg.com/vue@3"></script>
     <script>
     Vue.createApp({
@@ -110,6 +125,7 @@
                 keyword:'',
                 customer:'',
                 kembalian:0,
+                ringkasan_panel:false,
                 bayar:0,
                 pos_sess_id:'<?=$pos_sess_id?>',
                 isLoad:false
@@ -132,7 +148,9 @@
                 else
                     this.message = '<i>Tidak ada data!</i>'
             },
-            async addToCashier(code){
+            async addToCashier(product){
+                if(product.stock == 0) return
+                var code = product.code
                 var req = await fetch('index.php?r=api/transactions/add-to-cashier&code='+code+'&pos_sess_id='+this.pos_sess_id)
                 var res = await req.json()
 
@@ -158,10 +176,17 @@
                 if(this.bayar > 0)
                     this.kembalian = this.bayar - this.transactions.total
             },
-            async doBayar(){
+            async doSubmit(status = 'bayar')
+            {
                 if(this.bayar == 0)
                 {
                     alert('Pembayaran Gagal! Tidak ada nominal pembayaran.')
+                    return
+                }
+
+                if(isNaN(this.kembalian))
+                {
+                    alert('Pembayaran Gagal!')
                     return
                 }
 
@@ -176,13 +201,14 @@
                 formData.append('paytotal', this.bayar)
                 formData.append('pos_sess_id', this.pos_sess_id)
                 
-                var request = await fetch('index.php?r=api/transactions/bayar',{
+                var request = await fetch('index.php?r=api/transactions/bayar&status='+status,{
                     'method':'POST',
                     'body':formData
                 })
                 var response = await request.json()
                 if(response.status == 'success') 
                 {
+                    var transaction = response.transaction;
                     if(typeof(Android) === "undefined") 
                     {
                         alert('Pembayaran Berhasil! Klik Oke untuk mencetak struk')
@@ -191,7 +217,6 @@
                     else
                     {
                         var formatter = new Intl.NumberFormat('en-US', {});
-                        var transaction = response.transaction;
 
                         var transactionItems = "[C]--------------------------------\n";
                         transaction.items.forEach(item=>{

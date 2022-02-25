@@ -31,5 +31,5 @@ $db->update('transactions',[
     'id' => $transaction->id
 ]);
 
-set_flash_msg(['success'=>'Satuan berhasil ditambahkan']);
+set_flash_msg(['success'=>'Transaksi berhasil di kembalikan']);
 header('location:index.php?r=transactions/view&id='.$transaction->id);

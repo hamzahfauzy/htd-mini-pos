@@ -75,7 +75,7 @@
                                 <div class="text-right">
                                     <input type="number" class="form-control mb-2" name="payment_total" placeholder="Nominal Bayar" @keyup="hitungKembalian()" v-model="bayar">
                                     <input type="number" class="form-control mb-2" name="return_total" placeholder="Kembalian" v-model="kembalian" readonly>
-                                    <button id="btn-bayar" class="btn btn-primary btn-block" @click="bayar()">BAYAR</button>
+                                    <button id="btn-bayar" class="btn btn-primary btn-block" @click="doBayar()">BAYAR</button>
                                 </div>
                             </div>
                         </div>
@@ -158,7 +158,7 @@
                 if(this.bayar > 0)
                     this.kembalian = this.bayar - this.transactions.total
             },
-            async bayar(){
+            async doBayar(){
                 if(this.bayar == 0)
                 {
                     alert('Pembayaran Gagal! Tidak ada nominal pembayaran.')

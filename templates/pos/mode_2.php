@@ -178,22 +178,25 @@
             },
             async doSubmit(status = 'bayar')
             {
-                if(this.bayar == 0)
+                if(status == 'bayar')
                 {
-                    alert('Pembayaran Gagal! Tidak ada nominal pembayaran.')
-                    return
-                }
+                    if(this.bayar == 0)
+                    {
+                        alert('Pembayaran Gagal! Tidak ada nominal pembayaran.')
+                        return
+                    }
 
-                if(isNaN(this.kembalian))
-                {
-                    alert('Pembayaran Gagal!')
-                    return
-                }
+                    if(isNaN(this.kembalian))
+                    {
+                        alert('Pembayaran Gagal!')
+                        return
+                    }
 
-                if(this.kembalian < 0)
-                {
-                    alert('Pembayaran Gagal! Nominal pembayaran lebih kecil dari total transaksi')
-                    return
+                    if(this.kembalian < 0)
+                    {
+                        alert('Pembayaran Gagal! Nominal pembayaran lebih kecil dari total transaksi')
+                        return
+                    }
                 }
 
                 var formData = new FormData
@@ -211,7 +214,15 @@
                     var transaction = response.transaction;
                     if(typeof(Android) === "undefined") 
                     {
-                        alert('Pembayaran Berhasil! Klik Oke untuk mencetak struk')
+                        if(status == 'bayar')
+                        {
+                            alert('Pembayaran Berhasil! Klik Oke untuk mencetak struk')
+                        }
+                        else
+                        {
+                            alert('Order Berhasil! Klik Oke untuk mencetak struk')
+                        }
+
                         var res = await fetch('index.php?r=print/invoice&inv_code='+response.inv_code)
                     }
                     else

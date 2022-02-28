@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/htdoffi1/minipos.htd-official.com
+    - /bin/cp -a * $DEPLOYPATH

@@ -21,7 +21,7 @@
                             <?php if($success_msg): ?>
                             <div class="alert alert-success"><?=$success_msg?></div>
                             <?php endif ?>
-                            <form action="" method="post">
+                            <form action="" method="post" enctype="multipart/form-data">
                                 <input type="hidden" name="app[id]" value="<?=$data->id?>">
                                 <div class="form-group">
                                     <label for="">Nama</label>
@@ -46,6 +46,11 @@
                                         <option <?= $data->pos_mode == 'Mode 1' ? 'selected=""' : '' ?>>Mode 1</option>
                                         <option <?= $data->pos_mode == 'Mode 2' ? 'selected=""' : '' ?>>Mode 2</option>
                                     </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Gambar</label>
+                                    <input type="file" name="app[icon_url]" class="form-control mb-2">
+                                    <img src="<?=$data->icon_url?>" alt="" width="100px" style="object-fit:cover">
                                 </div>
                                 <div class="form-group">
                                     <button class="btn btn-primary">Submit</button>

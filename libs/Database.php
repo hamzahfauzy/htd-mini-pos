@@ -2,6 +2,7 @@
 
 class Database
 {
+    public $get_error = false;
     public $query = '';
     public $table = '';
     public $type = '';
@@ -147,6 +148,7 @@ class Database
             {
                 // echo $this->query;
                 // echo "<br>";
+                if($this->get_error) return $this->connection->error;
                 print_r($this->connection->error);
                 die();
             }

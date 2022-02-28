@@ -44,41 +44,45 @@ else
     ],['id'=>$transaction_id]);
 }
 
-foreach($carts['items'] as $product_id => $item)
+foreach($carts as $category)
 {
-    // check if product is already in items
-    $product_item = $db->single('transaction_items',[
-        'transaction_id' => $transaction_id,
-        'product_id' => $product_id,
-        'status'     => 'order'
-    ]);
-
-    if($product_item)
+    if(!is_array($category)) continue;
+    foreach($category['items'] as $product_id => $item)
     {
-        $qty = $product_item->qty + $item['qty'];
-        $db->update('transaction_items',[
-            'qty' => $qty,
-            'subtotal' => $item['subtotal'] + $product_item->subtotal
-        ],[
-            'id' => $product_item->id
+        // check if product is already in items
+        $product_item = $db->single('transaction_items',[
+            'transaction_id' => $transaction_id,
+            'product_id' => $product_id,
+            'status'     => 'order'
+        ]);
+    
+        if($product_item)
+        {
+            $qty = $product_item->qty + $item['qty'];
+            $db->update('transaction_items',[
+                'qty' => $qty,
+                'subtotal' => $item['subtotal'] + $product_item->subtotal
+            ],[
+                'id' => $product_item->id
+            ]);
+        }
+        else
+        {
+            $db->insert('transaction_items',[
+                'transaction_id' => $transaction->id,
+                'product_id'     => $product_id,
+                'price'          => $item['price'],
+                'qty'            => $item['qty'],
+                'subtotal'       => $item['subtotal'],
+                'status'         => $status,
+            ]);
+        }
+    
+        $db->insert('product_stocks',[
+            'product_id' => $product_id,
+            'qty'        => (-1 * $item['qty']),
         ]);
     }
-    else
-    {
-        $db->insert('transaction_items',[
-            'transaction_id' => $transaction->id,
-            'product_id'     => $product_id,
-            'price'          => $item['price'],
-            'qty'            => $item['qty'],
-            'subtotal'       => $item['subtotal'],
-            'status'         => $status,
-        ]);
-    }
-
-    $db->insert('product_stocks',[
-        'product_id' => $product_id,
-        'qty'        => (-1 * $item['qty']),
-    ]);
 }
 unset($_SESSION[$pos_sess_id]);
 

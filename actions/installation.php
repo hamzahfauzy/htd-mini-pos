@@ -30,6 +30,11 @@ if(request() == 'POST')
         'route_path' => '*'
     ]);
 
+    if(!file_exists('inv_print')) mkdir('inv_print');
+    if(!file_exists('uploads')) mkdir('uploads');
+    if(!file_exists('uploads/icons')) mkdir('uploads/icons');
+    if(!file_exists('uploads/products')) mkdir('uploads/products');
+
     set_flash_msg(['success'=>'Instalasi Berhasil']);
     header('location:index.php?r=auth/login');
     die();

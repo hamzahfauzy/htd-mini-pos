@@ -2,11 +2,11 @@
 
 $route = get_route();
 
-if($route == 'app/db-init')
-    if(stringContains(url(),"localhost"))
-        return true;
-    else
-        return false;
+if($route == 'app/db-init') return true;
+// if(stringContains(url(),"localhost"))
+//     return true;
+// else
+//     return false;
 
 if(startWith($route,'api'))
 {

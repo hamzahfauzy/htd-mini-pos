@@ -7,11 +7,11 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="d-flex">
+                                <!-- <div class="d-flex">
                                     <input type="text" class="form-control" id="kode-kustomer" placeholder="Kode Kustomer" name="customer_code">&nbsp;
                                     <input type="text" class="form-control" placeholder="Nama Kustomer" readonly>
-                                </div>
-                                <div class="mt-2">
+                                </div> -->
+                                <div>
                                 <input type="text" class="form-control" placeholder="Cari Kode Produk / Nama Produk" name="customer_code" @keyup="search" v-model="keyword">
                                 </div>
                                 <div class="mt-2">

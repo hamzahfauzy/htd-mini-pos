@@ -31,7 +31,9 @@ CREATE TABLE application (
     address TEXT NOT NULL,
     phone VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL,
-    pos_mode VARCHAR(100) NULL
+    pos_mode VARCHAR(100) NULL,
+    is_demo INT NULL,
+    icon_url VARCHAR(100) DEFAULT 'assets/img/main-logo.png'
 );
 
 CREATE TABLE categories (

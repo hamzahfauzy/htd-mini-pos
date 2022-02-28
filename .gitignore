@@ -1,5 +1,4 @@
 config/main.php
-config/menu.php
-config/icon_menu.php
 public/uploads/products/*
+public/icons/*
 public/inv_print/*

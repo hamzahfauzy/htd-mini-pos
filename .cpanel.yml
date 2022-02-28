@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - source ./deployment/deppath.rc #set DEPLOYPATH
+    - /bin/cp -a * $DEPLOYPATH

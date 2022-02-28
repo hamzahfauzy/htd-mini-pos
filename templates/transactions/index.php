@@ -21,13 +21,15 @@
                             <div class="alert alert-success"><?=$success_msg?></div>
                             <?php endif ?>
                             <div class="table-responsive table-hover table-sales">
-                                <table class="table">
+                                <table class="table datatable responsive nowrap">
                                     <thead>
                                         <tr>
                                             <th width="20px">#</th>
+                                            <th>Catatan</th>
                                             <th>Invoice</th>
                                             <th>Kustomer</th>
                                             <th>Kasir</th>
+                                            <th>Status</th>
                                             <th>Total</th>
                                             <th class="text-right"></th>
                                         </tr>
@@ -44,14 +46,20 @@
                                                 <?=$index+1?>
                                             </td>
                                             <td>
+                                                <?=$data->notes?>
+                                            </td>
+                                            <td style="white-space:nowrap;">
                                                 <?=$data->inv_code?><br>
                                                 <i><?=$data->created_at?></i>
                                             </td>
                                             <td>
                                                 <?= $data->customer ? $customer->name : '-' ?>
                                             </td>
-                                            <td>
+                                            <td style="white-space:nowrap;">
                                                 <?= $data->user->name ?>
+                                            </td>
+                                            <td>
+                                                <span class="badge badge-<?=$badge[$data->status == 'on going' ? 'order' : 'pay']?>"><?=$data->status?></span>
                                             </td>
                                             <td>
                                                 <?= number_format($data->total) ?>

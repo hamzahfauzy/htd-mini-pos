@@ -421,3 +421,16 @@ function count_total($items)
 
     return $total;
 }
+
+function count_total_2($carts)
+{
+    $total = 0;
+    foreach($carts as $key => $cart)
+    {
+        if(!is_array($cart)) continue;
+        foreach($cart['items'] as $item)
+            $total += $item['subtotal'];
+    }
+
+    return $total;
+}

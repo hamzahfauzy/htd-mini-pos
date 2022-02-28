@@ -102,6 +102,7 @@ CREATE TABLE transactions (
     return_total DOUBLE NOT NULL,
     status VARCHAR(100) NOT NULL,
     inv_code VARCHAR(100) NOT NULL,
+    notes VARCHAR(100) NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_transactions_customer_id FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE,
     CONSTRAINT fk_transactions_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE

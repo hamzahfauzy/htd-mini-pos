@@ -1,0 +1,87 @@
+.overlay-transactions {
+  position: fixed;
+  top:-85px;
+  left:0;
+  width:100%;
+  height: calc(100vh + 85px);
+  background-color: rgba(0,0,0,0.5);
+  /* display: none; */
+}
+.overlay-transactions.show {
+  display: block;
+}
+.fly-transactions {
+    position: fixed;
+    top: 85px;
+    z-index: 1;
+    padding: 0px 15px;
+    width: 100%;
+    left: 100%;
+    transform: translateX(100%);
+    transition:1s all;
+}
+.fly-transactions.show {
+    left: 0;
+    transform: translateX(0);
+}
+.fab-right {
+    position: fixed;
+    right:-5px;
+    top: 50%;
+    z-index: 2;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+.card-post {
+    position: relative;
+    transition: all 0.4s ease-in;
+}
+.card-post:before {
+  content: '';
+  background-color: aliceblue;
+  border-radius: 50%;
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: scale(0.001, 0.001);
+}
+.card-post:focus {
+  outline: 0;
+  background: #eaeaea;
+}
+.card-post:focus:before {
+  -webkit-animation: effect_dylan 0.8s ease-out;
+          animation: effect_dylan 0.8s ease-out;
+}
+@-webkit-keyframes effect_dylan {
+  50% {
+    transform: scale(1.5, 1.5);
+    opacity: 0;
+  }
+  99% {
+    transform: scale(0.001, 0.001);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(0.001, 0.001);
+    opacity: 1;
+  }
+}
+@keyframes effect_dylan {
+  50% {
+    transform: scale(1.5, 1.5);
+    opacity: 0;
+  }
+  99% {
+    transform: scale(0.001, 0.001);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(0.001, 0.001);
+    opacity: 1;
+  }
+}

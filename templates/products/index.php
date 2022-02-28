@@ -22,7 +22,7 @@
                             <div class="alert alert-success"><?=$success_msg?></div>
                             <?php endif ?>
                             <div class="table-responsive table-hover table-sales">
-                                <table class="table">
+                                <table class="table datatable">
                                     <thead>
                                         <tr>
                                             <th width="20px">#</th>
@@ -47,12 +47,12 @@
                                                 <?=$index+1?>
                                             </td>
                                             <td><?=$data->code?></td>
-                                            <td>
+                                            <td style="white-space:nowrap;">
                                                 <?=$data->name?><br>
                                                 <i><?=$data->shortname?></i>
                                             </td>
                                             <td><?=$data->unit->name?></td>
-                                            <td><?=number_format($data->price->base_price)?></td>
+                                            <td><?=number_format($data->price->base_price ?? 0)?></td>
                                             <td><?=number_format($data->stock)?></td>
                                             <td>
                                                 <a href="index.php?r=products/view&id=<?=$data->id?>" class="btn btn-sm btn-success"><i class="fas fa-eye"></i> Lihat</a>

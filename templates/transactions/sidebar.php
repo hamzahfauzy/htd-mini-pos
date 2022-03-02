@@ -29,6 +29,7 @@
                 <input type="number" class="form-control mb-2" name="payment_total" placeholder="Nominal Bayar" onkeyup="hitungKembalian(this.value)">
                 <button id="btn-bayar" class="btn btn-primary btn-block" onclick="bayar()">BAYAR</button>
                 <form action="index.php?r=transactions/mass-pay&transaction_id=<?=$transaction->id?>" method="post" class="d-none" name="formBayar">
+                    <input type="hidden" name="return_total">
                     <input type="hidden" name="total">
                 </form>
             </div>
@@ -42,6 +43,7 @@ function hitungKembalian(nominal){
         kembalian = nominal - <?=$transaction->total?>
 
     calculateTimeout = setTimeout(() => {
+        document.querySelector('[name=return_total]').innerHTML = kembalian
         document.querySelector('#kembalian').innerHTML = "Kembalian : ("+kembalian+")"
     }, 200);
 }

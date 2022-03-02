@@ -63,6 +63,12 @@ Vue.createApp({
         },
         async doSubmit(status = 'bayar')
         {
+            if(!this.transactions.total)
+            {
+                alert('Gagal! Tidak ada transaksi')
+                return
+            }
+
             if(this.notes == '')
             {
                 alert('Catatan tidak boleh kosong.')

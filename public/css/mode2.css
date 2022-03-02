@@ -5,10 +5,13 @@
   width:100%;
   height: calc(100vh + 85px);
   background-color: rgba(0,0,0,0.5);
-  /* display: none; */
+  z-index: -1;
+  opacity:0;
+  transition:1s all;
 }
 .overlay-transactions.show {
-  display: block;
+  z-index: 1000;
+  opacity: 1;
 }
 .fly-transactions {
     position: fixed;
@@ -18,17 +21,22 @@
     width: 100%;
     left: 100%;
     transform: translateX(100%);
+    z-index: 1001;
     transition:1s all;
 }
 .fly-transactions.show {
     left: 0;
     transform: translateX(0);
 }
+.fly-transactions .card {
+  max-width: 350px;
+  margin-left: auto;
+}
 .fab-right {
     position: fixed;
     right:-5px;
     top: 50%;
-    z-index: 2;
+    z-index: 1002;
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);

@@ -1,5 +1,5 @@
+<div class="overlay-transactions" :class="{show:ringkasan_panel}"></div>
 <div class="fly-transactions" :class="{show:ringkasan_panel}">
-    <div class="overlay-transactions"></div>
     <div class="card">
         <div class="card-body">
             <div class="text-center">
@@ -31,13 +31,17 @@
                     </template>
                 </div>
             </div>
-            <div class="text-right">
-                <template v-if="transaction_id == 0">
+            <div>
+                <div v-if="transaction_id == 0">
+                    <label for="">Kembalian : {{kembalian}}</label>
                     <input type="number" class="form-control mb-2" name="payment_total" placeholder="Nominal Bayar" @keyup="hitungKembalian()" v-model="bayar">
-                    <input type="number" class="form-control mb-2" name="return_total" placeholder="Kembalian" v-model="kembalian" readonly>
-                </template>
-                <button id="btn-order" class="btn btn-success btn-block" @click="doSubmit('order')">ORDER</button>
-                <button id="btn-bayar" class="btn btn-primary btn-block" @click="doSubmit()" v-if="transaction_id==0">BAYAR</button>
+                    <input type="text" class="form-control mb-2" placeholder="Catatan" v-model="notes">
+                </div>
+                <div class="d-flex">
+                    <button id="btn-order" class="flex-fill btn btn-success" @click="doSubmit('order')">ORDER</button>
+                    &nbsp;
+                    <button id="btn-bayar" class="flex-fill btn btn-primary" @click="doSubmit()" v-if="transaction_id==0">BAYAR</button>
+                </div>
             </div>
         </div>
     </div>

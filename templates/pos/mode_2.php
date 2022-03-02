@@ -14,9 +14,6 @@
                                 <div>
                                 <input type="text" class="form-control" placeholder="Cari Kode Produk / Nama Produk" name="customer_code" @keyup="search" v-model="keyword">
                                 </div>
-                                <div class="mt-2">
-                                <input type="text" class="form-control" placeholder="Catatan" v-model="notes">
-                                </div>
                             </div>
                         </div>
                         <div class="card">

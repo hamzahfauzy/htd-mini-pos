@@ -69,7 +69,7 @@ Vue.createApp({
                 return
             }
 
-            if(this.notes == '')
+            if(this.notes == '' && this.transaction_id == 0)
             {
                 alert('Catatan tidak boleh kosong.')
                 return

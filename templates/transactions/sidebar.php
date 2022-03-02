@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="css/mode2.css">
+<div class="overlay-transactions"></div>
 <div class="fly-transactions">
-    <div class="overlay-transactions"></div>
     <div class="card">
         <div class="card-body">
             <div class="text-center">
@@ -25,8 +25,8 @@
                 </div>
             </div>
             <div class="text-right">
+                <label for="" id="kembalian">Kembalian : (0)</label>
                 <input type="number" class="form-control mb-2" name="payment_total" placeholder="Nominal Bayar" onkeyup="hitungKembalian(this.value)">
-                <input type="number" class="form-control mb-2" name="return_total" placeholder="Kembalian" readonly>
                 <button id="btn-bayar" class="btn btn-primary btn-block" onclick="bayar()">BAYAR</button>
                 <form action="index.php?r=transactions/mass-pay&transaction_id=<?=$transaction->id?>" method="post" class="d-none" name="formBayar">
                     <input type="hidden" name="total">
@@ -42,7 +42,7 @@ function hitungKembalian(nominal){
         kembalian = nominal - <?=$transaction->total?>
 
     calculateTimeout = setTimeout(() => {
-        document.querySelector('input[name=return_total]').value = kembalian
+        document.querySelector('#kembalian').innerHTML = "Kembalian : ("+kembalian+")"
     }, 200);
 }
 

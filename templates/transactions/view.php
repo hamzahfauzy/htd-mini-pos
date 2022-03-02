@@ -129,6 +129,7 @@
     function showSidebar()
     {
         document.querySelector('.fly-transactions').classList.add('show')
+        document.querySelector('.overlay-transactions').classList.add('show')
     }
     </script>
 <?php load_templates('layouts/bottom') ?>

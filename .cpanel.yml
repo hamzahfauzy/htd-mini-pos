@@ -3,5 +3,7 @@ deployment:
   tasks:
     - export DEPLOYPATH1=/home/htdoffi1/minipos.htd-official.com
     - export DEPLOYPATH2=/home/htdoffi1/knb.htd-official.com
+    - export DEPLOYPATH3=/home/htdoffi1/htdpos.htd-official.com
     - /bin/cp -a * $DEPLOYPATH1
     - /bin/cp -a * $DEPLOYPATH2
+    - /bin/cp -a * $DEPLOYPATH3

@@ -113,6 +113,7 @@
     </div>
     <?php $transaction->user = [] ?>
     <script>
+    window.app = <?=json_encode(app())?>;
     async function cetak()
     {
         if(typeof(Android) === "undefined") 

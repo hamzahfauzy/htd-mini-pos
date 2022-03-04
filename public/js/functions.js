@@ -1,4 +1,4 @@
-function cetakAndroid(transaction)
+function cetakAndroid(transaction, log = false)
 {
     var formatter = new Intl.NumberFormat('en-US', {});
 
@@ -30,5 +30,12 @@ function cetakAndroid(transaction)
                     "[C]"+app.name
                     ;
 
-    Android.printInvoice(printText);
+    if(log)
+    {
+        console.log(printText)
+    }
+    else
+    {
+        Android.printInvoice(printText);
+    }
 }

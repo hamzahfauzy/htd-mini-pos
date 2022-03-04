@@ -117,7 +117,9 @@
     {
         if(typeof(Android) === "undefined") 
         {
-            window.location = 'index.php?r=print/invoice&inv_code=<?=$transaction->inv_code?>'
+            var transaction = <?=json_encode($transaction)?>;
+            cetakAndroid(transaction, 1)
+            window.open('index.php?r=print/invoice&inv_code=<?=$transaction->inv_code?>')
         }
         else
         {

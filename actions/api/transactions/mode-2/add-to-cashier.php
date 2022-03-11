@@ -74,15 +74,18 @@ else
         'id' => 'DESC'
     ]);
 
+    $discount = ($product_price->discount_type == 'fixed' ? $product_price->discount_price : $product_price->discount_price*$product_price->base_price/100) ?? 0;
+    $product_price = $product_price->base_price - $discount;
+
     $_SESSION[$pos_sess_id][$category_id]['items'][$data->id] = [
         'id'   => $data->id,
         'code' => $data->code,
         'name' => $data->name,
         'qty'  => 1,
-        'price'  => $product_price->base_price,
-        'price_format'  => number_format($product_price->base_price),
-        'subtotal' => $product_price->base_price,
-        'subtotal_format' => number_format($product_price->base_price)
+        'price'  => $product_price,
+        'price_format'  => number_format($product_price),
+        'subtotal' => $product_price,
+        'subtotal_format' => number_format($product_price)
     ];
 }
 

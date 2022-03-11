@@ -28,9 +28,10 @@ $categories = array_map(function($category) use ($keyword, $db){
                 'product_id' => $product->id
             ],[
                 'id' => 'DESC'
-            ])->base_price ?? 0;
+            ]);
+            $discount = ($price->discount_type == 'fixed' ? $price->discount_price : $price->discount_price*$price->base_price/100) ?? 0;
+            $price = $price->base_price - $discount;
             $product->price = number_format($price);
-
             $db->query = "SELECT sum(qty) as stock FROM product_stocks WHERE product_id=$product->id";
             $product->stock = $db->exec('single')->stock ?? 0;
 

@@ -52,7 +52,7 @@ class Database
         return $this->exec('updateall');
     }
 
-    function all($table, $clause = [], $order = [])
+    function all($table, $clause = [], $order = [], $limit = 0)
     {
         $this->table = $table;
         $conn = $this->connection;
@@ -64,6 +64,9 @@ class Database
         
         if($string_order)
             $this->query .= ' ORDER BY '.$string_order;
+
+        if($limit)
+            $this->query .= ' LIMIT '.$limit;
         return $this->exec('all');
     }
 

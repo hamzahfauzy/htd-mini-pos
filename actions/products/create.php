@@ -5,12 +5,15 @@ $db   = new Database($conn);
 
 if(request() == 'POST')
 {
-    $pic  = $_FILES['products'];
-    $ext  = pathinfo($pic['name']['pic'], PATHINFO_EXTENSION);
-    $name = strtotime('now').'.'.$ext;
-    $file = 'uploads/products/'.$name;
-    copy($pic['tmp_name']['pic'],$file);
-    $_POST['products']['pic'] = $file;
+    if(isset($_FILES['products']['name']['pic']) && !empty($_FILES['products']['name']['pic']))
+    {
+        $pic  = $_FILES['products'];
+        $ext  = pathinfo($pic['name']['pic'], PATHINFO_EXTENSION);
+        $name = strtotime('now').'.'.$ext;
+        $file = 'uploads/products/'.$name;
+        copy($pic['tmp_name']['pic'],$file);
+        $_POST['products']['pic'] = $file;
+    }
 
     $product = $db->insert('products',$_POST['products']);
     $db->insert('product_categories',[

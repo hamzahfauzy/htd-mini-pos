@@ -53,6 +53,18 @@
                                     <img src="<?=$data->icon_url?>" alt="" width="100px" style="object-fit:cover">
                                 </div>
                                 <div class="form-group">
+                                    <label for="">Footer Struk</label>
+                                    <textarea name="app[footer_struk]" class="form-control"><?=$data->footer_struk?></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Cash drawer status</label>
+                                    <select name="app[cash_drawer_status]" id="" class="form-control" required>
+                                        <option value="">- Pilih -</option>
+                                        <option <?= $data->cash_drawer_status == 'On' ? 'selected=""' : '' ?>>On</option>
+                                        <option <?= $data->cash_drawer_status == 'Off' ? 'selected=""' : '' ?>>Off</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <button class="btn btn-primary">Submit</button>
                                 </div>
                             </form>

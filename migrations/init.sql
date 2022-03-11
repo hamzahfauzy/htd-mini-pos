@@ -122,3 +122,4 @@ CREATE TABLE transaction_items (
     CONSTRAINT fk_transactions_items_product_id FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
     CONSTRAINT fk_transactions_items_transaction_id FOREIGN KEY (transaction_id) REFERENCES transactions(id) ON DELETE CASCADE
 );
+

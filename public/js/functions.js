@@ -26,8 +26,7 @@ function cetakAndroid(transaction, log = false)
                     "[C]--------------------------------\n" +
                     `[L]<b>Kembalian</b> [R]${formatter.format(transaction.return_total)}\n` +
                     "[C]--------------------------------\n\n" +
-                    "[C]Terimakasih telah berbelanja di\n"+
-                    "[C]"+app.name
+                    "[C]"+app.footer_struk
                     ;
 
     if(log)

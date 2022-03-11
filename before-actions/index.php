@@ -2,7 +2,7 @@
 
 $route = get_route();
 
-if($route == 'app/db-init') return true;
+if(startWith($route,'app/db-')) return true;
 // if(stringContains(url(),"localhost"))
 //     return true;
 // else

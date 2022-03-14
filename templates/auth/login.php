@@ -50,6 +50,10 @@
                                 <button class="btn btn-primary btn-block btn-round">Masuk</button>
                             </div>
                         </form>
+
+                        <center>
+                            <a href="https://crm.htd-official.com/index.php?r=app/gateway&reset=true">Reset Token</a>
+                        </center>
                     </div>
                 </div>
             </div>

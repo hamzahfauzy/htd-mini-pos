@@ -18,6 +18,8 @@ function cetakAndroid(transaction, log = false)
                     "[C]"+app.address+"\n" +
                     "[C]"+app.phone+"\n" +
                     "[C]--------------------------------\n" +
+                    "[C]"+transaction.notes+"\n" +
+                    "[C]--------------------------------\n" +
                     "[C]"+transaction.created_at+"\n" +
                     transactionItems +
                     `[L]<b>Total</b> [R]${formatter.format(transaction.total)}\n` +

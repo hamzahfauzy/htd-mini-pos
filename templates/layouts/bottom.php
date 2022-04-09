@@ -34,7 +34,7 @@
 	<!-- Atlantis JS -->
 	<script src="assets/js/atlantis.min.js"></script>
 
-	<script src="js/functions.js"></script>
+	<script src="js/functions.js?version=1.1"></script>
 	<script>
 		$('.datatable').dataTable({
 			responsive: true

@@ -20,6 +20,7 @@ if($beforeAction)
 }
 else
 {
+    http_response_code(403);
     load_page('errors/403');
 }
 die();

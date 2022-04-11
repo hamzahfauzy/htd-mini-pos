@@ -2,6 +2,8 @@
 
 class JwtAuth
 {
+    private static $_rest_session = [];
+
     static function get()
     {
         if(isset($_COOKIE[config('jwt_cookie_name')]))
@@ -23,6 +25,39 @@ class JwtAuth
         return json_decode($payload);
     }
 
+    static function generate_jwt($headers, $payload, $secret) {
+        $headers_encoded = self::base64url_encode(json_encode($headers));
+        
+        $payload_encoded = self::base64url_encode(json_encode($payload));
+        
+        $signature = hash_hmac('SHA256', "$headers_encoded.$payload_encoded", $secret, true);
+        $signature_encoded = self::base64url_encode($signature);
+        
+        $jwt = "$headers_encoded.$payload_encoded.$signature_encoded";
+        
+        return $jwt;
+    }
+
+    static function base64url_encode($str) {
+        return rtrim(strtr(base64_encode($str), '+/', '-_'), '=');
+    }
+
+    static function generate($payload)
+    {
+        $headers = array('alg'=>'HS256','typ'=>'JWT');
+        $secret  = config('jwt_secret');
+        return self::generate_jwt($headers, $payload, $secret);
+    }
+
+    static function set_rest_session($token)
+    {
+        self::$_rest_session = $token;
+    }
+
+    static function get_rest_session()
+    {
+        return self::decode(self::$_rest_session, config('jwt_secret'));
+    }
     // static function is_valid($jwt, $secret = 'secret') {
     //     $decode = self::decode($jwt, $secret);
     

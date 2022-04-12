@@ -65,6 +65,8 @@
                     <div class="card card-body">
                         <h1 class="fw-bold text-uppercase text-success op-8">Omset Bulan ini</h1>
                         <h1 class="fw-bold">Rp.<?=number_format($omset)?></h1>
+                        
+                        <a href="index.php?r=withdrawals/create" class="btn btn-primary btn-block">Tarik Omset</a>
                     </div>
                 </div>
             </div>

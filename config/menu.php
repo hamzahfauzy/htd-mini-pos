@@ -10,6 +10,7 @@ return [
     'kustomer'  => 'customers/index',
     'kasir'     => 'pos/index',
     'penjualan' => 'transactions/index',
+    'penarikan' => 'withdrawals/index',
     // 'laporan'   => 'reports/index',
     'pengguna'  => [
         'semua pengguna' => 'users/index',

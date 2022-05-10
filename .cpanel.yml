@@ -5,7 +5,9 @@ deployment:
     - export DEPLOYPATH2=/home/htdoffi1/knb.htd-official.com
     - export DEPLOYPATH3=/home/htdoffi1/htdpos.htd-official.com
     - export DEPLOYPATH4=/home/htdoffi1/rokuber.htd-official.com
+    - export DEPLOYPATH5=/home/htdoffi1/as-tangkahan.htd-official.com
     - /bin/cp -a * $DEPLOYPATH1
     - /bin/cp -a * $DEPLOYPATH2
     - /bin/cp -a * $DEPLOYPATH3
     - /bin/cp -a * $DEPLOYPATH4
+    - /bin/cp -a * $DEPLOYPATH5

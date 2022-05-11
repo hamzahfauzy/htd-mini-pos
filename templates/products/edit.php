@@ -18,7 +18,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="" method="post">
+                            <form action="" method="post" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label for="">Kode</label>
                                     <input type="text" name="products[code]" class="form-control" value="<?=$data->code?>" required>

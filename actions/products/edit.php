@@ -12,10 +12,10 @@ if(request() == 'POST')
     if(!empty($_FILES['file']))
     {
         $pic  = $_FILES['file'];
-        $ext  = pathinfo($pic['name']['pic'], PATHINFO_EXTENSION);
+        $ext  = pathinfo($pic['name'], PATHINFO_EXTENSION);
         $name = strtotime('now').'.'.$ext;
         $file = 'uploads/products/'.$name;
-        copy($pic['tmp_name']['pic'],$file);
+        copy($pic['tmp_name'],$file);
         $_POST['products']['pic'] = $file;
     }
     else

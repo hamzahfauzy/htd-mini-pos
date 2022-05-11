@@ -9,9 +9,9 @@ $data = $db->single('products',[
 
 if(request() == 'POST')
 {
-    if(!empty($_FILES['products']['name']['pic']))
+    if(!empty($_FILES['file']))
     {
-        $pic  = $_FILES['products'];
+        $pic  = $_FILES['file'];
         $ext  = pathinfo($pic['name']['pic'], PATHINFO_EXTENSION);
         $name = strtotime('now').'.'.$ext;
         $file = 'uploads/products/'.$name;

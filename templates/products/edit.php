@@ -51,7 +51,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="">Gambar</label>
-                                    <input type="file" name="products[pic]" class="form-control">
+                                    <input type="file" name="file" class="form-control">
                                     <img src="<?=$data->pic?>" alt="" width="300px" style="object-fit:cover">
                                 </div>
                                 <div class="form-group">

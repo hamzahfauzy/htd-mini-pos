@@ -51,7 +51,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="">Gambar</label>
-                                    <input type="file" name="products[pic]" class="form-control">
+                                    <input type="file" name="file" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <button class="btn btn-primary">Submit</button>

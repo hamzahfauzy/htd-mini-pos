@@ -5,9 +5,9 @@ $db   = new Database($conn);
 
 if(request() == 'POST')
 {
-    if(isset($_FILES['products']['name']['pic']) && !empty($_FILES['products']['name']['pic']))
+    if(isset($_FILES['file']) && !empty($_FILES['file']))
     {
-        $pic  = $_FILES['products'];
+        $pic  = $_FILES['file'];
         $ext  = pathinfo($pic['name']['pic'], PATHINFO_EXTENSION);
         $name = strtotime('now').'.'.$ext;
         $file = 'uploads/products/'.$name;

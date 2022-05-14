@@ -29,7 +29,7 @@
                                             <img class="card-img-top" :src="product.pic" :alt="product.name" height="100" style="object-fit: scale-down;" :style="{filter: product.stock == 0 ? 'grayscale(100%)' : ''}">
                                             <div class="card-body p-1">
                                                 <div class="info-post text-center">
-                                                    <p class="username" v-html="product.shortname"></p>
+                                                    <p class="username" v-html="product.name"></p>
                                                     Stok : {{product.stock}}
                                                 </div>
                                             </div>

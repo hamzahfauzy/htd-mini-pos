@@ -43,19 +43,29 @@ elseif(isset($_GET['name']))
 
 $data = $db->single('products',$clause);
 
-// get stok
-$db->query = "SELECT SUM(qty) as stock FROM product_stocks WHERE product_id=$data->id";
-$stock = $db->exec('single');
-if($stock->stock <= 0)
+if(empty($data))
+{
+    echo json_encode(['error'=>'not found']);
+    die();
+}
+
+if($data->default_stock == 'tidak tersedia')
 {
     echo json_encode(['error'=>'stock not found']);
     die();
 }
 
-if(empty($data))
+$stock = [];
+if($data->default_stock == 'stock')
 {
-    echo json_encode(['error'=>'not found']);
-    die();
+    // get stok
+    $db->query = "SELECT SUM(qty) as stock FROM product_stocks WHERE product_id=$data->id";
+    $stock = $db->exec('single');
+    if($stock->stock <= 0)
+    {
+        echo json_encode(['error'=>'stock not found']);
+        die();
+    }
 }
 
 // check if item is already on cashier
@@ -74,8 +84,11 @@ else
         'id' => 'DESC'
     ]);
 
-    $discount = ($product_price->discount_type == 'fixed' ? $product_price->discount_price : $product_price->discount_price*$product_price->base_price/100) ?? 0;
-    $product_price = $product_price->base_price - $discount;
+    // $discount = ($product_price->discount_type == 'fixed' ? $product_price->discount_price : $product_price->discount_price*$product_price->base_price/100) ?? 0;
+    // $product_price = $product_price->base_price - $discount;
+
+    $discount = $product_price ? ($product_price->discount_type == 'fixed' ? $product_price->discount_price : $product_price->discount_price*$product_price->base_price/100) : 0;
+    $product_price = $product_price ? $product_price->base_price - $discount : 0;
 
     $_SESSION[$pos_sess_id][$category_id]['items'][$data->id] = [
         'id'   => $data->id,

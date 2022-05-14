@@ -34,7 +34,7 @@ foreach($datas as $data)
     ]);
 
     $db->query = "SELECT sum(qty) as stock FROM product_stocks WHERE product_id=$data->id";
-    $data->stock = $db->exec('single')->stock;
+    $data->stock = $data->default_stock == 'stock' ? number_format($db->exec('single')->stock) : ucwords($data->default_stock);
 
     $data->unit = $unit;
     $data->categories = $cats;

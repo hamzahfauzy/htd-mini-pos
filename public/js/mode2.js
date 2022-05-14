@@ -42,7 +42,7 @@ Vue.createApp({
             this.transactions = res
         },
         async updateQty(id, value, cat_id, type){
-            var val = type == 'plus' ? parseInt(value)+1 : parseInt(value)-1
+            var val = type == 'plus' ? parseInt(value)+1 : (type == 'minus' ? parseInt(value)-1 : value)
             if(val == 0)
             {
                 this.deleteTransaction(id)
@@ -63,7 +63,17 @@ Vue.createApp({
         },
         async doSubmit(status = 'bayar')
         {
-            if(!this.transactions.total)
+            var item_exists = false
+            for(cat in this.transactions)
+            {
+                if(this.transactions[cat].name == undefined) continue;
+                var items = this.transactions[cat].items
+                if(Object.keys(items).length)
+                {
+                    item_exists = true
+                }
+            }
+            if(!this.transactions.total && !item_exists)
             {
                 alert('Gagal! Tidak ada transaksi')
                 return

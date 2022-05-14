@@ -29,11 +29,11 @@ $categories = array_map(function($category) use ($keyword, $db){
             ],[
                 'id' => 'DESC'
             ]);
-            $discount = ($price->discount_type == 'fixed' ? $price->discount_price : $price->discount_price*$price->base_price/100) ?? 0;
-            $price = $price->base_price - $discount;
+            $discount = $price ? ($price->discount_type == 'fixed' ? $price->discount_price : $price->discount_price*$price->base_price/100) : 0;
+            $price = $price ? $price->base_price - $discount : 0;
             $product->price = number_format($price);
             $db->query = "SELECT sum(qty) as stock FROM product_stocks WHERE product_id=$product->id";
-            $product->stock = $db->exec('single')->stock ?? 0;
+            $product->stock = $product->default_stock != 'stock' ? $product->default_stock : $db->exec('single')->stock;
 
             return $product;
         },$db->exec('all'));

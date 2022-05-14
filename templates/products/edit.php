@@ -50,6 +50,15 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <label for="">Pengaturan Stok</label>
+                                    <select name="products[default_stock]" class="form-control" id="" required>
+                                        <option value="">- Pilih -</option>
+                                        <?php foreach(['tersedia','tidak tersedia','stock'] as $stok): ?>
+                                        <option value="<?=$stok?>" <?=$stok==$data->default_stock?'selected=""':""?>><?=ucwords($stok)?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label for="">Gambar</label>
                                     <input type="file" name="file" class="form-control">
                                     <img src="<?=$data->pic?>" alt="" width="300px" style="object-fit:cover">

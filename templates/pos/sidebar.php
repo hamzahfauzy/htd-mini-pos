@@ -18,7 +18,7 @@
                                     <button class="btn btn-icon btn-danger btn-round btn-xs" @click="updateQty(transaction.id,transaction.qty, index,'minus')">
                                         <i class="fa fa-minus"></i>
                                     </button>
-                                    <span class="ml-3 mr-3">{{transaction.qty}}</span>
+                                    <input class="ml-3 mr-3" type="number" v-model="transaction.qty" style="width:50px;padding:5px" @change="updateQty(transaction.id,transaction.qty, index,'fixed')">
                                     <button class="btn btn-icon btn-primary btn-round btn-xs" @click="updateQty(transaction.id,transaction.qty, index,'plus')">
                                         <i class="fa fa-plus"></i>
                                     </button>

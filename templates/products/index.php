@@ -54,7 +54,7 @@
                                             </td>
                                             <td><?=$data->unit->name?></td>
                                             <td><?=number_format($data->price->base_price ?? 0)?></td>
-                                            <td><?=number_format($data->stock)?></td>
+                                            <td><?=$data->stock?></td>
                                             <td>
                                                 <a href="index.php?r=products/view&id=<?=$data->id?>" class="btn btn-sm btn-success"><i class="fas fa-eye"></i> Lihat</a>
                                                 <a href="index.php?r=products/edit&id=<?=$data->id?>" class="btn btn-sm btn-warning"><i class="fas fa-pencil-alt"></i> Edit</a>

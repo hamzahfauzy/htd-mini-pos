@@ -19,33 +19,41 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <table class="table table-bordered">
-                                <tr>
-                                    <td>Kode</td>
-                                    <td width="10px">:</td>
-                                    <td><?=$data->code?></td>
-                                </tr>
-                                <tr>
-                                    <td>Nama</td>
-                                    <td>:</td>
-                                    <td><?=$data->name?> (<?=$data->shortname?>)</td>
-                                </tr>
-                                <tr>
-                                    <td>Satuan</td>
-                                    <td>:</td>
-                                    <td><?=$data->unit->name?></td>
-                                </tr>
-                                <tr>
-                                    <td>Kategori</td>
-                                    <td>:</td>
-                                    <td><?=$data->categories[0]->name?></td>
-                                </tr>
-                                <tr>
-                                    <td>Gambar</td>
-                                    <td>:</td>
-                                    <td><img src="<?=$data->pic?>" alt="" width="300px" style="object-fit:cover"></td>
-                                </tr>
-                            </table>
+                            <div class="table-responsive">
+
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <td>Kode</td>
+                                        <td width="10px">:</td>
+                                        <td><?=$data->code?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nama</td>
+                                        <td>:</td>
+                                        <td><?=$data->name?> (<?=$data->shortname?>)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Satuan</td>
+                                        <td>:</td>
+                                        <td><?=$data->unit->name?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kategori</td>
+                                        <td>:</td>
+                                        <td><?=$data->categories[0]->name?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Gambar</td>
+                                        <td>:</td>
+                                        <td><img src="<?=$data->pic?>" alt="" width="300px" style="object-fit:cover"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pengaturan Stok</td>
+                                        <td>:</td>
+                                        <td><?=ucwords($data->default_stock)?></td>
+                                    </tr>
+                                </table>
+                            </div>
                             <?php if($success_msg): ?>
                                 <div class="alert alert-success"><?=$success_msg?></div>
                             <?php endif ?>

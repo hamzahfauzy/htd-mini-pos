@@ -34,9 +34,8 @@ foreach($transactions as $index => $transaction)
 }
 
 $badge = [
-    'order' => 'warning',
-    'pay'   => 'success',
-    'retur' => 'danger',
+    'on going' => 'warning',
+    'finish'   => 'success'
 ];
 
 return compact('transactions','success_msg','badge','omset','piutang');

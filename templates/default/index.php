@@ -29,6 +29,7 @@
                                             <th width="20px">#</th>
                                             <th>Catatan</th>
                                             <th>Invoice</th>
+                                            <th>Status</th>
                                             <th>Total</th>
                                         </tr>
                                     </thead>
@@ -49,6 +50,9 @@
                                             <td style="white-space:nowrap;">
                                                 <?=$data->inv_code?><br>
                                                 <?= date("H:i - d F Y",strtotime($data->created_at)) ?>
+                                            </td>
+                                            <td>
+                                                <span class="badge badge-<?=$badge[$data->status]?>"><?=$data->status?></span>
                                             </td>
                                             <td>
                                                 <?= number_format($data->total) ?>

@@ -66,6 +66,11 @@
                         <h1 class="fw-bold text-uppercase text-success op-8">Omset Bulan ini</h1>
                         <h1 class="fw-bold">Rp.<?=number_format($omset)?></h1>
                     </div>
+                    
+                    <div class="card card-body">
+                        <h1 class="fw-bold text-uppercase text-success op-8">Piutang Bulan ini</h1>
+                        <h1 class="fw-bold">Rp.<?=number_format($piutang)?></h1>
+                    </div>
                 </div>
             </div>
         </div>

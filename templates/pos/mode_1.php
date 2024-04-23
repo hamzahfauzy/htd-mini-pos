@@ -198,13 +198,15 @@
         formData.append('paytotal', nominal_bayar.value)
         formData.append('pos_sess_id', '<?=$pos_sess_id?>')
         
-        var request = await fetch('index.php?r=api/transactions/bayar',{
+        var request = await fetch('index.php?r=api/transactions/bayar&status=bayar',{
             'method':'POST',
             'body':formData
         })
         var response = await request.json()
         if(response.status == 'success') 
         {
+            var transaction = response.transaction;
+            
             if(typeof(Android) === "undefined") 
             {
                 alert('Pembayaran Berhasil! Klik Oke untuk mencetak struk')
@@ -213,7 +215,6 @@
             else
             {
                 var formatter = new Intl.NumberFormat('en-US', {});
-                var transaction = response.transaction;
 
                 var transactionItems = "[C]--------------------------------\n";
                 transaction.items.forEach(item=>{

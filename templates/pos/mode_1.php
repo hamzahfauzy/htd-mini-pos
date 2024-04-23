@@ -48,7 +48,8 @@
                                 <div class="col-12 col-md-5 text-right">
                                     <input type="number" class="form-control mb-2" name="payment_total" placeholder="Nominal Bayar" onkeyup="hitungKembalian(this.value, event)" value="0">
                                     <input type="number" class="form-control mb-2" name="return_total" placeholder="Kembalian" value="0" readonly>
-                                    <button id="btn-bayar" class="btn btn-primary btn-block" onclick="bayar()">BAYAR</button>
+                                    <button id="btn-bayar" class="btn btn-primary btn-block" onclick="doSubmit(true)">BAYAR</button>
+                                    <button id="btn-bayar" class="btn btn-success btn-block" onclick="doSubmit()">ORDER</button>
                                 </div>
                             </div>
                         </div>
@@ -177,8 +178,8 @@
 			document.querySelector('#btn-bayar').click()
 		}
     }
-
-    async function bayar(){
+    
+    async function doSubmit(bayar = false){
         var nominal_bayar = document.querySelector('input[name=payment_total]')
         var kembalian     = document.querySelector('input[name=return_total]')
         if(nominal_bayar.value == 0)
@@ -198,7 +199,7 @@
         formData.append('paytotal', nominal_bayar.value)
         formData.append('pos_sess_id', '<?=$pos_sess_id?>')
         
-        var request = await fetch('index.php?r=api/transactions/bayar&status=bayar',{
+        var request = await fetch('index.php?r=api/transactions/bayar' + (bayar ? '&status=bayar' : ''),{
             'method':'POST',
             'body':formData
         })
@@ -209,7 +210,14 @@
             
             if(typeof(Android) === "undefined") 
             {
-                alert('Pembayaran Berhasil! Klik Oke untuk mencetak struk')
+                if(bayar)
+                {
+                    alert('Pembayaran Berhasil! Klik Oke untuk mencetak struk')
+                }
+                else
+                {
+                    alert('Order Berhasil! Klik Oke untuk mencetak struk')
+                }
                 var res = await fetch('index.php?r=print/invoice&inv_code='+response.inv_code)
             }
             else

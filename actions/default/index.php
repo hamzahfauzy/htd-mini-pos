@@ -12,10 +12,15 @@ $omset = 0;
 
 $period = date('Y-m');
 
-$db->query = "select sum(total) as omset from transactions where created_at like '$period%'";
+$db->query = "select sum(total) as omset from transactions where status = 'finish' and created_at like '$period%'";
 
 $omset = $db->exec('single');
 $omset = $omset->omset;
+
+$db->query = "select sum(total) as piutang from transactions where status = 'on going' and created_at like '$period%'";
+
+$piutang = $db->exec('single');
+$piutang = $piutang->piutang;
 
 foreach($transactions as $index => $transaction)
 {
@@ -29,9 +34,8 @@ foreach($transactions as $index => $transaction)
 }
 
 $badge = [
-    'order' => 'warning',
-    'pay'   => 'success',
-    'retur' => 'danger',
+    'on going' => 'warning',
+    'finish'   => 'success'
 ];
 
-return compact('transactions','success_msg','badge','omset');
+return compact('transactions','success_msg','badge','omset','piutang');

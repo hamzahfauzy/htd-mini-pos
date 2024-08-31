@@ -52,7 +52,7 @@
                         </form>
 
                         <center>
-                            <a href="https://crm.htd-official.com/index.php?r=app/gateway&gw_type=minipos&reset=true">Reset Token</a>
+                            <!--<a href="https://crm.htd-official.com/index.php?r=app/gateway&gw_type=minipos&reset=true">Reset Token</a>-->
                         </center>
                     </div>
                 </div>

@@ -7,6 +7,7 @@ class Database
     public $table = '';
     public $type = '';
     private $without_quote = ['NULL','TIMESTAMP'];
+    public $connection = null;
     function __construct($connection)
     {
         $db = config('database');

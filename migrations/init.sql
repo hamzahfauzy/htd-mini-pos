@@ -127,6 +127,9 @@ CREATE TABLE invoices (
     total DOUBLE NOT NULL,
     remaining_payment DOUBLE DEFAULT 0,
     status VARCHAR(100) NOT NULL,
+    issue_date DATE DEFAULT NULL,
+    due_date DATE DEFAULT NULL,
+    metadata JSON DEFAULT NULL,
     created_by INT DEFAULT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_invoices_customer_id FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE SET NULL,
@@ -161,4 +164,14 @@ CREATE TABLE transactions (
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_transactions_invoice_id FOREIGN KEY (invoice_id) REFERENCES invoices(id) ON DELETE CASCADE,
     CONSTRAINT fk_transactions_created_by FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE SET NULL
+);
+
+CREATE TABLE balance_mutations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    amount DOUBLE NOT NULL,
+    record_type VARCHAR(10) NOT NULL,
+    description TEXT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_balance_mutations_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );

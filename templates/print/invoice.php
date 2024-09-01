@@ -1,26 +1,32 @@
-<div style="font-size:7px;">
+<div>
     <br>
     <div style="text-align:center">
-        <b><?=app('name')?></b><br>
+        <h3><?=app('name')?></h3>
         <?=app('address').'<br>'.app('phone')?>
     </div>
     <br>
 
-    <table border="0" width="100%" style="width:100%;font-size:7px;">
+    <table border="0" style="width:100%">
         <tr>
-            <td colspan="2" width="85" style="border-top:1px dashed #000;border-bottom:1px dashed #000;padding:5px 0px;">
+            <td colspan="2" style="border-top:1px dashed #000;border-bottom:1px dashed #000;padding:5px 0px;">
             <?=date('d-m-Y H:i:s')?>
             </td>
-            <td colspan="2" width="85" style="border-top:1px dashed #000;border-bottom:1px dashed #000;text-align:right;padding:5px 0px;">
+            <td colspan="2" style="border-top:1px dashed #000;border-bottom:1px dashed #000;text-align:right;padding:5px 0px;">
             <?=$invoice->code.' / '.substr($invoice->creator->name,0,10)?>
             </td>
         </tr>
         <?php foreach($invoice->items as $item): ?>
         <tr>
-            <td><?=$item->product->shortname?></td>
+            <td>
+                <?=$item->product->shortname?><br>
+                <?=$item->qty?> x <?=number_format($item->price)?>
+            </td>
             <td></td>
-            <td style="text-align:right;"><?=$item->qty?> x <?=number_format($item->price)?></td>
-            <td style="text-align:right;"><?=number_format($item->subtotal)?></td>
+            <td></td>
+            <td style="text-align:right;">
+                <br>
+                <?=number_format($item->subtotal)?>
+            </td>
         </tr>
         <?php endforeach ?>
         <tr>

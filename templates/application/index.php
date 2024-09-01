@@ -66,6 +66,22 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <label for="">Fee Sales</label>
+                                    <input type="number" name="app[fee_sales]" class="form-control" value="<?=$data->fee_sales?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Tipe Fee Sales</label>
+                                    <select name="app[fee_sales_type]" id="" class="form-control" required>
+                                        <option value="">- Pilih -</option>
+                                        <option <?= $data->fee_sales_type == 'Percent' ? 'selected=""' : '' ?>>Percent</option>
+                                        <option <?= $data->fee_sales_type == 'Fixed' ? 'selected=""' : '' ?>>Fixed</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Pajak</label>
+                                    <input type="number" name="app[tax]" class="form-control" value="<?=$data->tax?>">
+                                </div>
+                                <div class="form-group">
                                     <button class="btn btn-primary">Submit</button>
                                 </div>
                             </form>

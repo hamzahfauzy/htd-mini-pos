@@ -26,6 +26,21 @@ if($remaining <= 0)
 {
     $db->query = "UPDATE invoice_items SET status = 'pay' WHERE invoice_id = $invoice_id";
     $db->exec();
+
+    if($invoice->sales_id)
+    {
+        // fee sales
+        if(app('fee_sales') && app('fee_sales') > 0)
+        {
+            $fee_sales = app('fee_sales_type') == 'fixed' ? app('fee_sales') : ($invoice->total * app('fee_sales')/100); 
+            $db->insert('balance_mutations',[
+                'user_id' => $invoice->sales_id,
+                'amount'   => $fee_sales,
+                'record_type' => 'IN',
+                'description' => 'Fee Sales '.$invoice->code,
+            ]);
+        }
+    }
 }
 
 set_flash_msg(['success'=>'Transaksi berhasil dibayar']);

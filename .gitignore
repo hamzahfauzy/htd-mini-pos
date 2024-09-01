@@ -1,6 +1,13 @@
 config/main.php
+public/uploads/properties/*
 public/uploads/products/*
 public/icons/*
 public/inv_print/*
 modules/*
 !modules/.gitkeep
+templates/properties
+templates/property-items
+actions/properties
+actions/property-items
+public/downloads
+public/templates

@@ -1,0 +1,1 @@
+/home/minipos.webisnis.id/public_html/modules/properties/assets/js/pos.js

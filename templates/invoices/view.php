@@ -13,6 +13,10 @@
                         <button class="btn btn-success btn-round" onclick="showSidebar()">Bayar</button>
                         <?php endif ?>
                         <button class="btn btn-success btn-round" onclick="cetak()">Cetak Struk</button>
+
+                        <?php if(in_array('properties', config('modules')) && $invoice->metadata->transaction_type != 'Cash'): ?>
+                        <a href="index.php?r=properties/download&invoice=<?=$invoice->id?>" class="btn btn-primary btn-round">Download File Akad</a>
+                        <?php endif ?>
                     </div>
                 </div>
             </div>

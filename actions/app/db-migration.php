@@ -5,7 +5,7 @@ $db    = new Database($conn);
 
 $db->get_error = true;
 $migrations = $db->single('migrations');
-if(stringContains($migrations,"doesn't exist"))
+if(is_string($migrations) && stringContains($migrations,"doesn't exist"))
 {
     $query = 'CREATE TABLE migrations (
                 id INT AUTO_INCREMENT PRIMARY KEY,
@@ -42,12 +42,8 @@ if(!empty($files))
             $query  = fread($myfile, filesize($actualFile));
             fclose($myfile);
             
-            $db->query = $query;
+            $db->query = "INSERT INTO migrations (filename) VALUES ('$file');" . $query;
             $db->exec('multi_query');
-
-            $db->insert('migrations',[
-                'filename' => $file
-            ]);
 
             $isRun = true;
             

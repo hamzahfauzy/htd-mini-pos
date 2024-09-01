@@ -13,6 +13,10 @@ foreach($invoices as $index => $invoice)
     $invoice->customer = $db->single('customers',[
         'id' => $invoice->customer_id
     ]);
+    
+    $invoice->sales = $db->single('users',[
+        'id' => $invoice->sales_id
+    ]);
 
     $invoice->creator = $db->single('users',[
         'id' => $invoice->created_by

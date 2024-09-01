@@ -50,27 +50,23 @@ $inv_code = $_GET['code'];
         }
 
     
-        $height = (count($invoice->items) * 3) + 55;
-        if($height > 290) $height = 290;
+        // $height = (count($invoice->items) * 3) + 55;
+        // if($height > 290) $height = 290;
     
         $html = load_templates('print/invoice',compact('invoice'),1);
-
-        echo $html;
-
-        die;
     
-        $html2pdf = new Html2Pdf('P',[
-            '57',
-            $height
-        ]);
+        $html2pdf = new Html2Pdf();
         $html2pdf->writeHTML($html);
-        // $html2pdf->output();
-        $html2pdf->output($file_dest,'F');
-    
+        $html2pdf->output();
+        // $html2pdf->output($file_dest,'F');
     }
 // }
 
 // printer command
 // print $file_dest
+
+// header("Content-type: application/pdf");
+// header("Content-Disposition: inline; filename=$inv_code.pdf");
+// @readfile($file_dest);
 
 die();

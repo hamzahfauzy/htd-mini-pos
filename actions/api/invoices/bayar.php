@@ -32,6 +32,22 @@ $insert_data = [
     'notes' => $notes
 ];
 
+if(isset($_POST['sales_id']))
+{
+    $insert_data['sales_id'] = $_POST['sales_id'];
+
+    if(app('fee_sales') && app('fee_sales') > 0)
+    {
+        $fee_sales = app('fee_sales_type') == 'fixed' ? app('fee_sales') : ($carts['total'] * app('fee_sales')/100); 
+        $db->insert('balance_mutations',[
+            'user_id' => $insert_data['sales_id'],
+            'amount'   => $fee_sales,
+            'record_type' => 'IN',
+            'description' => 'Fee Sales '.$inv_code,
+        ]);
+    }
+}
+
 if($customer_id) $insert_data['customer_id'] = $customer_id;
 
 $invoice = $db->insert('invoices',$insert_data);

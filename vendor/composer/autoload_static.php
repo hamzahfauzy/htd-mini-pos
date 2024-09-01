@@ -6,17 +6,50 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit70b402d10473cc4c1723ce63b8520bcd
 {
+    public static $files = array (
+        'c9e7e60cbb72852ebab97bfd94f05d3c' => __DIR__ . '/..' . '/nasution/terbilang/src/terbilang.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
+        'T' => 
+        array (
+            'Tests\\PhpOffice\\Math\\' => 21,
+        ),
         'S' => 
         array (
             'Spipu\\Html2Pdf\\' => 15,
         ),
+        'P' => 
+        array (
+            'PhpOffice\\PhpWord\\' => 18,
+            'PhpOffice\\Math\\' => 15,
+        ),
+        'N' => 
+        array (
+            'Nasution\\' => 9,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'Tests\\PhpOffice\\Math\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpoffice/math/tests/Math',
+        ),
         'Spipu\\Html2Pdf\\' => 
         array (
             0 => __DIR__ . '/..' . '/spipu/html2pdf/src',
+        ),
+        'PhpOffice\\PhpWord\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpoffice/phpword/src/PhpWord',
+        ),
+        'PhpOffice\\Math\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpoffice/math/src/Math',
+        ),
+        'Nasution\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nasution/terbilang/src/Nasution',
         ),
     );
 

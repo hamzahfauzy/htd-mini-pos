@@ -50,10 +50,10 @@
                                                 <?=$data->code?>
                                             </td>
                                             <td>
-                                                <?= $data->customer ? $data->customer : '-' ?>
+                                                <?= $data->customer ? $data->customer->name : '-' ?>
                                             </td>
                                             <td>
-                                                <?= $data->sales ? $data->sales : '-' ?>
+                                                <?= $data->sales ? $data->sales->name : '-' ?>
                                             </td>
                                             <td style="white-space:nowrap;">
                                                 <?= $data->creator->name ?>

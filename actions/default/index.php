@@ -23,12 +23,8 @@ $piutang = $piutang->inv_total - $omset;
 
 foreach($transactions as $index => $transaction)
 {
-    $transaction->customer = $db->single('customers',[
-        'id' => $transaction->customer_id
-    ]);
-
-    $transaction->user = $db->single('users',[
-        'id' => $transaction->user_id
+    $transaction->creator = $db->single('users',[
+        'id' => $transaction->created_by
     ]);
 }
 

@@ -52,4 +52,6 @@ $badge = [
     'retur' => 'danger',
 ];
 
+$invoice->metadata = json_decode($invoice->metadata);
+
 return compact('invoice','success_msg','badge');

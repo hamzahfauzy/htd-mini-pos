@@ -1,22 +1,22 @@
 <?php
 use Spipu\Html2Pdf\Html2Pdf;
 
-$inv_code = $_GET['inv_code'];
-$file_dest = __DIR__ .'/../../public/inv_print/'.$inv_code.'.pdf';
-if(!file_exists('inv_print/'.$inv_code.'.pdf'))
-{
+$inv_code = $_GET['code'];
+// $file_dest = __DIR__ .'/../../public/inv_print/'.$inv_code.'.pdf';
+// if(!file_exists('inv_print/'.$inv_code.'.pdf'))
+// {
     $conn = conn();
     $db   = new Database($conn);
     
     
-    $transaction = $db->single('transactions',[
-        'inv_code' => $inv_code
+    $invoice = $db->single('invoices',[
+        'code' => $inv_code
     ]);
     
-    if($transaction)
+    if($invoice)
     {
-        $items = $db->all('transaction_items',[
-            'transaction_id' => $transaction->id
+        $items = $db->all('invoice_items',[
+            'invoice_id' => $invoice->id
         ]);
     
         foreach($items as $index => $item)
@@ -28,19 +28,32 @@ if(!file_exists('inv_print/'.$inv_code.'.pdf'))
             $items[$index]->product = $product;
         }
     
-        $transaction->items = $items;
-        $transaction->user  = $db->single('users',[
-            'id' => $transaction->user_id
+        $invoice->items = $items;
+        $invoice->creator  = $db->single('users',[
+            'id' => $invoice->created_by
         ]);
     
-        $transaction->customer  = $db->single('customers',[
-            'id' => $transaction->customer_id
+        $invoice->customer  = $db->single('customers',[
+            'id' => $invoice->customer_id
         ]);
+        $invoice->paytotal = 0;
+        $invoice->return_total = 0;
+        
+        $transactions = $db->all('transactions',[
+            'invoice_id' => $invoice->id
+        ]);
+
+        foreach($transactions as $transaction)
+        {
+            $invoice->paytotal += $transaction->amount;
+            $invoice->return_total += $transaction->amount_return;
+        }
+
     
-        $height = (count($transaction->items) * 3) + 55;
+        $height = (count($invoice->items) * 3) + 55;
         if($height > 290) $height = 290;
     
-        $html = load_templates('print/invoice',compact('transaction'),1);
+        $html = load_templates('print/invoice',compact('invoice'),1);
 
         echo $html;
 
@@ -55,7 +68,7 @@ if(!file_exists('inv_print/'.$inv_code.'.pdf'))
         $html2pdf->output($file_dest,'F');
     
     }
-}
+// }
 
 // printer command
 // print $file_dest

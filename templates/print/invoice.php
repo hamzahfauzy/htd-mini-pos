@@ -12,10 +12,10 @@
             <?=date('d-m-Y H:i:s')?>
             </td>
             <td colspan="2" width="85" style="border-top:1px dashed #000;border-bottom:1px dashed #000;text-align:right;padding:5px 0px;">
-            <?=$transaction->inv_code.' / '.substr($transaction->user->name,0,10)?>
+            <?=$invoice->code.' / '.substr($invoice->creator->name,0,10)?>
             </td>
         </tr>
-        <?php foreach($transaction->items as $item): ?>
+        <?php foreach($invoice->items as $item): ?>
         <tr>
             <td><?=$item->product->shortname?></td>
             <td></td>
@@ -31,19 +31,19 @@
             <td></td>
             <td></td>
             <td style="padding:5px 0px;"><b>Total</b></td>
-            <td style="padding:5px 0px;text-align:right;"><?=number_format($transaction->total)?></td>
+            <td style="padding:5px 0px;text-align:right;"><?=number_format($invoice->total)?></td>
         </tr>
         <tr>
             <td></td>
             <td></td>
             <td style="border-top:1px dashed #000;padding:5px 0px;"><b>Bayar</b></td>
-            <td style="border-top:1px dashed #000;padding:5px 0px;text-align:right;"><?=number_format($transaction->paytotal)?></td>
+            <td style="border-top:1px dashed #000;padding:5px 0px;text-align:right;"><?=number_format($invoice->paytotal)?></td>
         </tr>
         <tr>
             <td></td>
             <td></td>
             <td style="border-top:1px dashed #000;border-bottom:1px dashed #000;padding:5px 0px;"><b>Kembalian</b></td>
-            <td style="border-top:1px dashed #000;border-bottom:1px dashed #000;padding:5px 0px;text-align:right;"><?=number_format($transaction->return_total)?></td>
+            <td style="border-top:1px dashed #000;border-bottom:1px dashed #000;padding:5px 0px;text-align:right;"><?=number_format($invoice->return_total)?></td>
         </tr>
         <tr>
             <td colspan="4">

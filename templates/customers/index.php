@@ -28,6 +28,8 @@
                                             <th width="20px">#</th>
                                             <th>Kode</th>
                                             <th>Nama</th>
+                                            <th>Alamat</th>
+                                            <th>No. HP</th>
                                             <th class="text-right">
                                             </th>
                                         </tr>
@@ -35,7 +37,7 @@
                                     <tbody>
                                         <?php if(empty($datas)): ?>
                                             <tr>
-                                                <td colspan="4" class="text-center"><i>Tidak ada data</i></td>
+                                                <td colspan="6" class="text-center"><i>Tidak ada data</i></td>
                                             </tr>
                                         <?php endif ?>
                                         <?php foreach($datas as $index => $data): ?>
@@ -45,6 +47,8 @@
                                             </td>
                                             <td><?=$data->code?></td>
                                             <td><?=$data->name?></td>
+                                            <td><?=$data->address?></td>
+                                            <td><?=$data->phone?></td>
                                             <td>
                                                 <a href="index.php?r=customers/edit&id=<?=$data->id?>" class="btn btn-sm btn-warning"><i class="fas fa-pencil-alt"></i> Edit</a>
                                                 <a href="index.php?r=customers/delete&id=<?=$data->id?>" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Hapus</a>

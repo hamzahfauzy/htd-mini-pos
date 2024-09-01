@@ -52,8 +52,8 @@
                                 <div class="form-group">
                                     <label for="">Pengaturan Stok</label>
                                     <select name="products[default_stock]" class="form-control" id="" required>
-                                        <option value="">- Pilih -</option>
-                                        <?php foreach(['tersedia','tidak tersedia','stock'] as $stok): ?>
+                                        <option value="tersedia">Tersedia</option>
+                                        <?php foreach(['tidak tersedia','stock'] as $stok): ?>
                                         <option value="<?=$stok?>"><?=ucwords($stok)?></option>
                                         <?php endforeach ?>
                                     </select>

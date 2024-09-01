@@ -28,6 +28,14 @@
                                     <input type="text" name="customers[name]" class="form-control" required>
                                 </div>
                                 <div class="form-group">
+                                    <label for="">Alamat</label>
+                                    <textarea name="customers[address]" class="form-control"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">No. HP</label>
+                                    <input type="text" name="customers[phone]" class="form-control">
+                                </div>
+                                <div class="form-group">
                                     <button class="btn btn-primary">Submit</button>
                                 </div>
                             </form>

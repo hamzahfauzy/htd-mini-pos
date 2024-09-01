@@ -29,7 +29,7 @@
                 <div class="card full-height">
                     <div class="card-body">
                         <center>
-                            <img src="assets/img/main-logo.png" width="150px" height="100px" alt="logo" style="object-fit:cover;">
+                            <img src="assets/img/main-logo.png" width="150px" height="100px" alt="logo" style="object-fit:contain;">
                         </center>
                         <div class="card-title text-center">Form Instalasi</div>
 
@@ -44,7 +44,7 @@
                                 <label for="">E-Mail</label>
                                 <input type="text" name="app[email]" id="" required class="form-control mb-2" placeholder="E-Mail Disini...">
                                 <label for="">POS Mode</label>
-                                <select name="app[pos_mode]" id="" class="form-control" required>
+                                <select name="app[pos_mode]" id="" class="form-control mb-2" required>
                                     <option value="">- Pilih -</option>
                                     <option>Mode 1</option>
                                     <option>Mode 2</option>

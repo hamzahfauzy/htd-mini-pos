@@ -4,20 +4,20 @@ $conn = conn();
 $db   = new Database($conn);
 $success_msg = get_flash_msg('success');
 
-$transaction = $db->single('transactions',[
+$invoice = $db->single('invoices',[
     'id' => $_GET['id']
 ]);
 
-$transaction->customer = $db->single('customers',[
-    'id' => $transaction->customer_id
+$invoice->customer = $db->single('customers',[
+    'id' => $invoice->customer_id
 ]);
 
-$transaction->user = $db->single('users',[
-    'id' => $transaction->user_id
+$invoice->creator = $db->single('users',[
+    'id' => $invoice->created_by
 ]);
 
-$items = $db->all('transaction_items',[
-    'transaction_id' => $transaction->id
+$items = $db->all('invoice_items',[
+    'invoice_id' => $invoice->id
 ]);
 
 foreach($items as $index => $item)
@@ -41,7 +41,10 @@ usort($items,function($a, $b){
     return $a->product->category->id - $b->product->category->id;
 });
 
-$transaction->items = $items;
+$invoice->items = $items;
+
+$db->query = "SELECT transactions.*, users.name as cashier FROM transactions JOIN users ON users.id = transactions.created_by WHERE invoice_id = $invoice->id";
+$invoice->transactions = $db->exec('all');
 
 $badge = [
     'order' => 'warning',
@@ -49,4 +52,4 @@ $badge = [
     'retur' => 'danger',
 ];
 
-return compact('transaction','success_msg','badge');
+return compact('invoice','success_msg','badge');

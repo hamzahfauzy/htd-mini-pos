@@ -5,7 +5,7 @@ $db   = new Database($conn);
 
 if(request() == 'POST')
 {
-    if(isset($_FILES['file']) && !empty($_FILES['file']))
+    if(isset($_FILES['file']) && !empty($_FILES['file']['name']))
     {
         $pic  = $_FILES['file'];
         $ext  = pathinfo($pic['name'], PATHINFO_EXTENSION);
@@ -15,6 +15,7 @@ if(request() == 'POST')
         $_POST['products']['pic'] = $file;
     }
 
+    $_POST['products']['created_by'] = auth()->user->id;
     $product = $db->insert('products',$_POST['products']);
     $db->insert('product_categories',[
         'product_id' => $product->id,

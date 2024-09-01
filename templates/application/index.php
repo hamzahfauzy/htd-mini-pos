@@ -43,8 +43,9 @@
                                     <label for="">POS Mode</label>
                                     <select name="app[pos_mode]" id="" class="form-control" required>
                                         <option value="">- Pilih -</option>
-                                        <option <?= $data->pos_mode == 'Mode 1' ? 'selected=""' : '' ?>>Mode 1</option>
-                                        <option <?= $data->pos_mode == 'Mode 2' ? 'selected=""' : '' ?>>Mode 2</option>
+                                        <?php foreach(config('pos_mode') as $label => $mode): ?>
+                                        <option <?= $data->pos_mode == $label ? 'selected=""' : '' ?>><?=$label?></option>
+                                        <?php endforeach ?>
                                     </select>
                                 </div>
                                 <div class="form-group">

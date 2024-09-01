@@ -23,9 +23,9 @@
                             <div class="form-group">
                                 <label for="">Filter</label>
                                 <div class="d-flex">
-                                    <input type="datetime-local" name="from" class="form-control" value="<?=@$_GET['from']?>">
+                                    <input type="date" name="from" class="form-control" value="<?=isset($_GET['from']) ? $_GET['from'] : date('Y-m-01')?>">
                                     &nbsp;
-                                    <input type="datetime-local" name="to" class="form-control" value="<?=@$_GET['to']?>">
+                                    <input type="date" name="to" class="form-control" value="<?=isset($_GET['to']) ? $_GET['to'] : date('Y-m-t')?>">
                                     &nbsp;
                                     <button name="tampil" class="btn btn-success">Tampilkan</button>
                                     &nbsp;

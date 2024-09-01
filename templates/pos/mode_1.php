@@ -49,7 +49,9 @@
                                     <input type="number" class="form-control mb-2" name="payment_total" placeholder="Nominal Bayar" onkeyup="hitungKembalian(this.value, event)" value="0">
                                     <input type="number" class="form-control mb-2" name="return_total" placeholder="Kembalian" value="0" readonly>
                                     <button id="btn-bayar" class="btn btn-primary btn-block" onclick="doSubmit(true)">BAYAR</button>
+                                    <?php /*
                                     <button id="btn-bayar" class="btn btn-success btn-block" onclick="doSubmit()">ORDER</button>
+                                    */ ?>
                                 </div>
                             </div>
                         </div>
@@ -84,7 +86,7 @@
         if(codeTimeout) clearTimeout(codeTimeout)
 
         codeTimeout = setTimeout(() => {
-            fetch('index.php?r=api/transactions/add-to-cashier&code='+code+'&pos_sess_id=<?=$pos_sess_id?>')
+            fetch('index.php?r=api/invoices/add-to-cashier&code='+code+'&pos_sess_id=<?=$pos_sess_id?>')
             .then(res => res.json())
             .then(res => {
                 if(!res.hasOwnProperty('error'))
@@ -106,7 +108,7 @@
 
     function updateQty(el, id)
     {
-        fetch('index.php?r=api/transactions/update-qty&id='+id+'&pos_sess_id=<?=$pos_sess_id?>&qty='+el.value)
+        fetch('index.php?r=api/invoices/update-qty&id='+id+'&pos_sess_id=<?=$pos_sess_id?>&qty='+el.value)
         .then(res => res.json())
         .then(res => {
             window.transactions = res
@@ -116,7 +118,7 @@
 
     function deleteTransaction(id)
     {
-        fetch('index.php?r=api/transactions/delete-transaction&id='+id+'&pos_sess_id=<?=$pos_sess_id?>')
+        fetch('index.php?r=api/invoices/delete-transaction&id='+id+'&pos_sess_id=<?=$pos_sess_id?>')
         .then(res => res.json())
         .then(res => {
             window.transactions = res
@@ -131,27 +133,26 @@
         var xTable = document.getElementById('transactions-table');
         xTable.getElementsByTagName("tbody")[0].innerHTML = "";
         var index = 0;
+        xTable.getElementsByTagName("tbody")[0].innerHTML += `<tr><td style="padding:0!important;" colspan="6">
+                                            <input type="text" class="form-control" id="input-kode" placeholder="Ketikan kode produk disini..." onkeyup="addToCashier(event, this.value)" style="border-radius:0;border:0;" autofocus>
+                                        </td></tr>`;
+
         for(tr in window.transactions.items)
         {
             var transaction = window.transactions.items[tr]
             
-            xTable.getElementsByTagName("tbody")[0].innerHTML += `<tr id="data-${index}" class="data-row" data-id="${transaction.id}"><td>${transaction.code}</td>
+            xTable.getElementsByTagName("tbody")[0].innerHTML += `
+                        <tr id="data-${index}" class="data-row" data-id="${transaction.id}">
+                            <td>${transaction.code}</td>
                             <td>${transaction.name}</td>
                             <td>${transaction.price_format}</td>
                             <td><input type="number" id="q-${index}" value="${transaction.qty}" min="1" class="p-1" style="width:100%" onchange="updateQty(this,${transaction.id})"></td>
                             <td>${transaction.subtotal_format}</td>
-                            <td><button class="btn btn-danger btn-sm" onclick="deleteTransaction(${transaction.id})"><i class="fas fa-times"></i></button></td></tr>`
+                            <td><button class="btn btn-danger btn-sm" onclick="deleteTransaction(${transaction.id})"><i class="fas fa-times"></i></button></td>
+                        </tr>`
             index++
         }
-
-        xTable.getElementsByTagName("tbody")[0].innerHTML += `<tr><td style="padding:0!important;" width="200px;">
-                                            <input type="text" class="form-control" id="input-kode" onkeyup="addToCashier(event, this.value)" style="border-radius:0;border:0;width:calc(100% - 37px);" autofocus>
-                                        </td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td></tr>`;
+       
 
         document.querySelector('span#total').innerHTML = window.transactions.hasOwnProperty('total') ? window.transactions.total_format : 0
 
@@ -182,13 +183,13 @@
     async function doSubmit(bayar = false){
         var nominal_bayar = document.querySelector('input[name=payment_total]')
         var kembalian     = document.querySelector('input[name=return_total]')
-        if(nominal_bayar.value == 0)
+        if(bayar && nominal_bayar.value == 0)
         {
             alert('Pembayaran Gagal! Tidak ada nominal pembayaran.')
             return
         }
 
-        if(kembalian.value < 0)
+        if(bayar && kembalian.value < 0)
         {
             alert('Pembayaran Gagal! Nominal pembayaran lebih kecil dari total transaksi')
             return
@@ -197,16 +198,17 @@
         var formData = new FormData
         formData.append('customer_code', document.querySelector('#kode-kustomer').value)
         formData.append('paytotal', nominal_bayar.value)
+        formData.append('payment_type', 'cash')
         formData.append('pos_sess_id', '<?=$pos_sess_id?>')
         
-        var request = await fetch('index.php?r=api/transactions/bayar' + (bayar ? '&status=bayar' : ''),{
+        var request = await fetch('index.php?r=api/invoices/bayar' + (bayar ? '&status=bayar' : ''),{
             'method':'POST',
             'body':formData
         })
         var response = await request.json()
         if(response.status == 'success') 
         {
-            var transaction = response.transaction;
+            var invoice = response.invoice;
             
             if(typeof(Android) === "undefined") 
             {
@@ -224,10 +226,10 @@
             {
                 var formatter = new Intl.NumberFormat('en-US', {});
 
-                var transactionItems = "[C]--------------------------------\n";
-                transaction.items.forEach(item=>{
-                    transactionItems += `[L]${item.product.shortname}\n`
-                    transactionItems += `[L]${item.qty} x ${formatter.format(item.price)} [R]${formatter.format(item.subtotal)}\n`
+                var invoiceItems = "[C]--------------------------------\n";
+                invoice.items.forEach(item=>{
+                    invoiceItems += `[L]${item.product.shortname}\n`
+                    invoiceItems += `[L]${item.qty} x ${formatter.format(item.price)} [R]${formatter.format(item.subtotal)}\n`
                 })
                 transactionItems += "[C]--------------------------------\n";
 
@@ -251,7 +253,7 @@
             }
 
             setTimeout(function(){
-                window.location = 'index.php?r=transactions/view&id='+transaction.id
+                window.location = 'index.php?r=invoices/view&id='+transaction.id
             },3000)
             
         }

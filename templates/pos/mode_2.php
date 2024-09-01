@@ -1,7 +1,7 @@
 <?php load_templates('layouts/top') ?>
 <link rel="stylesheet" href="css/mode2.css">
     <div class="content py-5">
-        <div id="app">
+        <div id="app" style="display:none">
             <div class="page-inner">
                 <div class="row">
                     <div class="col-12">
@@ -54,7 +54,7 @@
             </div>
         </div>
     </div>
-    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
     <script>
     window.pos_sess_id = '<?=$pos_sess_id?>';
     window.transaction_id = '<?=$transaction_id?>';

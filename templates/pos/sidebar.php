@@ -1,4 +1,4 @@
-<div class="overlay-transactions" :class="{show:ringkasan_panel}"></div>
+<div class="overlay-transactions" :class="{show:ringkasan_panel}" @click="ringkasan_panel = !ringkasan_panel"></div>
 <div class="fly-transactions" :class="{show:ringkasan_panel}">
     <div class="card">
         <div class="card-body">
@@ -33,14 +33,12 @@
             </div>
             <div>
                 <div v-if="transaction_id == 0">
-                    <label for="">Kembalian : {{kembalian}}</label>
+                    <label for="">Kembalian : {{numberFormat(kembalian)}}</label>
                     <input type="number" class="form-control mb-2" name="payment_total" placeholder="Nominal Bayar" @keyup="hitungKembalian()" v-model="bayar">
                     <input type="text" class="form-control mb-2" placeholder="Catatan" v-model="notes">
                 </div>
                 <div class="d-flex">
                     <button id="btn-order" class="flex-fill btn btn-success" @click="doSubmit('order')">ORDER</button>
-                    &nbsp;
-                    <button id="btn-bayar" class="flex-fill btn btn-primary" @click="doSubmit()" v-if="transaction_id==0">BAYAR</button>
                 </div>
             </div>
         </div>

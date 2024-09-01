@@ -11,7 +11,7 @@ if(
 {
     $conn = conn();
     $db   = new Database($conn);
-    $db->query = "SELECT * FROM transactions WHERE created_at BETWEEN '$_GET[from]' AND '$_GET[to]'";
+    $db->query = "SELECT * FROM transactions WHERE `status` = 'finish' AND DATE_FORMAT(created_at, '%Y-%m-%d') BETWEEN '$_GET[from]' AND '$_GET[to]'";
     $transactions = $db->exec('all');
     $transactions = array_map(function($transaction) use ($db) {
         $transaction->customer = $db->single('customers',[

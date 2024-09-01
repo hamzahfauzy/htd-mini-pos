@@ -27,10 +27,10 @@
                                     <thead>
                                         <tr>
                                             <th width="20px">#</th>
-                                            <th>Catatan</th>
                                             <th>Invoice</th>
-                                            <th>Status</th>
-                                            <th>Total</th>
+                                            <th>Jumlah Pembayaran</th>
+                                            <th>Jumlah yang harus dibayar</th>
+                                            <th>Kembalian</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -44,18 +44,18 @@
                                             <td>
                                                 <?=$index+1?>
                                             </td>
-                                            <td>
-                                                <?=$data->notes?>
-                                            </td>
                                             <td style="white-space:nowrap;">
-                                                <?=$data->inv_code?><br>
-                                                <?= date("H:i - d F Y",strtotime($data->created_at)) ?>
+                                                <a href="index.php?r=invoices/view&id=<?=$data->invoice_id?>"><?=$data->code?></a><br>
+                                                <?= $data->created_at ?>
                                             </td>
                                             <td>
-                                                <span class="badge badge-<?=$badge[$data->status]?>"><?=$data->status?></span>
+                                                Rp. <?= number_format($data->amount) ?>
                                             </td>
                                             <td>
-                                                <?= number_format($data->total) ?>
+                                            Rp. <?= number_format($data->amount_total) ?>
+                                            </td>
+                                            <td>
+                                            Rp. <?= number_format($data->amount_return) ?>
                                             </td>
                                         </tr>
                                         <?php endforeach ?>

@@ -33,7 +33,7 @@
                 <?php if($error_msg): ?>
                 <div class="alert alert-danger"><?=$error_msg?></div>
                 <?php endif ?>
-                <div class="card full-height">
+                <div class="card">
                     <div class="card-body">
                         <center>
                             <img src="<?=app('icon_url')?>" width="150px" height="100px" alt="logo" style="object-fit:contain;">

@@ -9,8 +9,9 @@ return [
     ],
     'kustomer'  => 'customers/index',
     'kasir'     => 'pos/index',
-    'penjualan' => 'transactions/index',
-    'laporan'   => 'reports/index',
+    'faktur'    => 'invoices/index',
+    'transaksi' => 'transactions/index',
+    // 'laporan'   => 'reports/index',
     'pengguna'  => [
         'semua pengguna' => 'users/index',
         'roles' => 'roles/index'

@@ -21,6 +21,8 @@ if(request() == 'POST')
     else
         $_POST['products']['pic'] = $data->pic;
 
+    $_POST['products']['updated_by'] = auth()->user->id;
+    $_POST['products']['updated_at'] = date('Y-m-d H:i:s');
     $db->update('products',$_POST['products'],[
         'id' => $_GET['id']
     ]);

@@ -1,16 +1,16 @@
-function cetakAndroid(transaction, log = false)
+function cetakAndroid(invoice, log = false)
 {
     var formatter = new Intl.NumberFormat('en-US', {});
 
-    var transactionItems = "[C]--------------------------------\n";
-    transaction.items.forEach((item,index)=>{
-        if(index == 0 || item.product.category.id != transaction.items[index-1].product.category.id)
-            transactionItems += `[L]${item.product.category.name}\n`
+    var invoiceItems = "[C]--------------------------------\n";
+    invoice.items.forEach((item,index)=>{
+        if(index == 0 || item.product.category.id != invoice.items[index-1].product.category.id)
+            invoiceItems += `[L]${item.product.category.name}\n`
         
-        transactionItems += `[L]${item.product.shortname}\n`
-        transactionItems += `[L]${item.qty} x ${formatter.format(item.price)} [R]${formatter.format(item.subtotal)}\n`
+        invoiceItems += `[L]${item.product.shortname}\n`
+        invoiceItems += `[L]${item.qty} x ${formatter.format(item.price)} [R]${formatter.format(item.subtotal)}\n`
     })
-    transactionItems += "[C]--------------------------------\n";
+    invoiceItems += "[C]--------------------------------\n";
 
     var app = window.app
 
@@ -18,15 +18,15 @@ function cetakAndroid(transaction, log = false)
                     "[C]"+app.address+"\n" +
                     "[C]"+app.phone+"\n" +
                     "[C]--------------------------------\n" +
-                    "[C]"+transaction.notes+"\n" +
+                    "[C]"+invoice.notes+"\n" +
                     "[C]--------------------------------\n" +
-                    "[C]"+transaction.created_at+"\n" +
-                    transactionItems +
-                    `[L]<b>Total</b> [R]${formatter.format(transaction.total)}\n` +
+                    "[C]"+invoice.created_at+"\n" +
+                    invoiceItems +
+                    `[L]<b>Total</b> [R]${formatter.format(invoice.total)}\n` +
                     "[C]--------------------------------\n" +
-                    `[L]<b>Bayar</b> [R]${formatter.format(transaction.paytotal)}\n` +
+                    `[L]<b>Bayar</b> [R]${formatter.format(invoice.paytotal)}\n` +
                     "[C]--------------------------------\n" +
-                    `[L]<b>Kembalian</b> [R]${formatter.format(transaction.return_total)}\n` +
+                    `[L]<b>Kembalian</b> [R]${formatter.format(invoice.return_total)}\n` +
                     "[C]--------------------------------\n\n" +
                     "[C]"+app.footer_struk
                     ;

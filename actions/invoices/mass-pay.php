@@ -41,6 +41,19 @@ if($remaining <= 0)
             ]);
         }
     }
+
+    if(in_array('properties', config('modules')))
+    {
+        $item = $db->single('invoice_items', [
+            'invoice_id' => $invoice_id
+        ]);
+
+        $db->update('property_items', [
+            'record_status' => 'sold'
+        ], [
+            'product_id' => $item->product_id
+        ]);
+    }
 }
 
 set_flash_msg(['success'=>'Transaksi berhasil dibayar']);

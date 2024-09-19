@@ -175,3 +175,9 @@ CREATE TABLE balance_mutations (
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_balance_mutations_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
+
+CREATE TABLE migrations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    filename VARCHAR(100) NOT NULL,
+    execute_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

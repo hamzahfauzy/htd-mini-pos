@@ -83,7 +83,7 @@ foreach($carts['items'] as $product_id => $item)
 {
     // check if product is already in items
     $product_item = $db->single('invoice_items',[
-        'invoice_id' => $invoice_id,
+        'invoice_id' => $invoice->id,
         'product_id' => $item['id'],
         'status'     => 'order'
     ]);

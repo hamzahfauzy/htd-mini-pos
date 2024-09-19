@@ -5,6 +5,7 @@ Vue.createApp({
             data: [],
             transactions: [],
             keyword:'',
+            customers:[],
             customer:'',
             notes:'',
             kembalian:0,
@@ -18,6 +19,7 @@ Vue.createApp({
     },
     async created(){
         await this.initData()
+        this.getCustomers()
         document.querySelector('#app').style.display = 'block'
     },
     methods:{
@@ -162,7 +164,12 @@ Vue.createApp({
                 },3000)
                 
             }
-        }
+        },
+        async getCustomers(){
+            const req = await fetch('index.php?r=api/customers/get-all')
+            const response = await req.json()
+            this.customers = response.data
+        },
     },
     watch:{
         transactions: function(newVal, oldVal) {

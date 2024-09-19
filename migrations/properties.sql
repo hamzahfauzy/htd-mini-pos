@@ -1,1 +1,0 @@
-/home/minipos.webisnis.id/public_html/modules/properties/migrations/properties.sql

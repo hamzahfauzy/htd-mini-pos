@@ -4,7 +4,7 @@
         <div class="card-body">
             <div class="text-center">
                 <h2>Total : Rp. {{transactions.total ? transactions.total_format : 0}}</h2>
-                <div class="transactions" style="height: calc(100vh - 380px);overflow: auto;">
+                <div class="transactions" style="height: calc(100vh - 400px);overflow: auto;">
                     <template v-for="(cat, index) in transactions" :key="index">
                         <h3 class="text-left text-bold">{{cat.name}}</h3>
                         <div class="item d-flex w-100 justify-content-between mb-3" v-for="(transaction, i) in cat.items" :key="i">
@@ -35,6 +35,10 @@
                 <div v-if="transaction_id == 0">
                     <label for="">Kembalian : {{numberFormat(kembalian)}}</label>
                     <input type="number" class="form-control mb-2" name="payment_total" placeholder="Nominal Bayar" @keyup="hitungKembalian()" v-model="bayar">
+                    <select class="form-control mb-2" v-model="customer">
+                        <option value="">Pilih Kustomer</option>
+                        <option v-for="customer in customers" :key="customer.id" :value="customer.code">{{customer.name}}</option>
+                    </select>
                     <input type="text" class="form-control mb-2" placeholder="Catatan" v-model="notes">
                 </div>
                 <div class="d-flex">

@@ -191,17 +191,22 @@
     <?php $invoice->user = [] ?>
     <script>
     window.app = <?=json_encode(app())?>;
+    window.config = <?=json_encode(config())?>;
     async function cetak()
     {
-        if(typeof(Android) === "undefined") 
+        var transaction = <?=json_encode($invoice)?>;
+        if(window.config.printer == 'rawbt')
         {
-            var transaction = <?=json_encode($invoice)?>;
+            cetakRawBt(transaction)
+        }
+        else if(typeof(Android) === "undefined") 
+        {
+            
             cetakAndroid(transaction, 1)
             window.open('index.php?r=print/invoice&code=<?=$invoice->code?>')
         }
         else
         {
-            var transaction = <?=json_encode($invoice)?>;
             cetakAndroid(transaction)
         }
     }

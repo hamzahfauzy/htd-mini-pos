@@ -13,12 +13,14 @@ function printContent(invoice)
     invoiceItems += "[C]--------------------------------\n";
 
     var app = window.app
+    const customer_name = invoice.customer ? invoice.customer.name : ''
+    const notes = invoice.notes + (customer_name ? ' - ' + customer_name : '')
 
     var printText = "[C]"+app.name+"\n" +
                     "[C]"+app.address+"\n" +
                     "[C]"+app.phone+"\n" +
                     "[C]--------------------------------\n" +
-                    "[C]"+invoice.notes+"\n" +
+                    "[C]"+notes+"\n" +
                     "[C]--------------------------------\n" +
                     "[C]"+invoice.created_at+"\n" +
                     invoiceItems +
